@@ -1,0 +1,11 @@
+<!-- app/views/shared/_error_messages.html.erb -->
+<% if resource.errors.any? %>
+  <div class="alert alert-danger">
+    <p><strong><%= t(".form_has_errors", default: "次のエラーがあります:") %></strong></p>
+    <ul class="mb-0">
+      <% resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

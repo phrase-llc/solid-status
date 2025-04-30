@@ -1,0 +1,11 @@
+<h2 class="mb-4"><%= t(".sign_up") %></h2>
+
+<%= bootstrap_form_with(model: resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render 'layouts/flash' %>
+  <%= f.email_field :email, autofocus: true, label: t("activerecord.attributes.user.email"), required: false, floating: true %>
+  <%= f.password_field :password, label: t("activerecord.attributes.user.password"), required: false, floating: true %>
+  <%= f.password_field :password_confirmation, label: t("activerecord.attributes.user.password_confirmation"), required: false, floating: true %>
+  <%= f.submit t(".sign_up"), class: "btn btn-primary" %>
+<% end %>
+
+<%= render "devise/shared/links" %>

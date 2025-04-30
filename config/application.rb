@@ -36,6 +36,19 @@ module SolidStatus
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.i18n.default_locale = :ja
+    config.time_zone = "Tokyo"
+    config.active_model.i18n_customize_full_message = true
+
+    config.generators do |g|
+      g.helper false
+      g.test_framework :rspec,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: false
+    end
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

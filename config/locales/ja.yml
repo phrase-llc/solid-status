@@ -1,0 +1,18 @@
+# config/locales/ja.yml
+ja:
+  activerecord:
+    models:
+      incident_entry: インシデント更新
+    attributes:
+      incident_entry:
+        status: ステータス
+        body: 内容
+
+  enums:
+    incident_entry:
+      status:
+        investigating: 調査中
+        identified: 原因特定済
+        monitoring: 監視中
+        resolved: 復旧済
+        postmortem: 再発防止レポート

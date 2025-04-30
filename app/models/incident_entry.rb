@@ -5,7 +5,8 @@ class IncidentEntry < ApplicationRecord
     investigating: "investigating",
     identified: "identified",
     monitoring: "monitoring",
-    resolved: "resolved"
+    resolved: "resolved",
+    postmortem: "postmortem"
   }
 
   validates :status, presence: true

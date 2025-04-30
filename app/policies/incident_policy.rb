@@ -40,4 +40,10 @@ class IncidentPolicy < ApplicationPolicy
   def membership
     @membership ||= Membership.find_by(user: user, product: record.product)
   end
+
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+  end
 end

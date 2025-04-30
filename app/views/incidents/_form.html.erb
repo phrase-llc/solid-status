@@ -1,0 +1,7 @@
+<%= bootstrap_form_with(model: incident, local: true) do |form| %>
+  <%= form.select :product_id, Product.all.map { |p| [p.name, p.id] }, include_blank: true %>
+  <%= form.text_field :title %>
+  <%= form.datetime_select :started_at %>
+
+  <%= form.submit %>
+<% end %>

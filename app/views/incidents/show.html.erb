@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @incident %>
+
+<div>
+  <%= link_to "Edit this incident", edit_incident_path(@incident) %> |
+  <%= link_to "Back to incidents", incidents_path %>
+
+  <%= button_to "Destroy this incident", @incident, method: :delete %>
+</div>
+
+<h3>更新履歴</h3>
+<ul class="list-group mb-4">
+  <% @incident.incident_entries.order(:created_at).each do |entry| %>
+    <li class="list-group-item">
+      <strong><%= t("enums.incident_entry.status.#{entry.status}") %></strong>
+      <small class="text-muted">（<%= l(entry.created_at, format: :short) %>）</small>
+      <p><%= simple_format(entry.body) %></p>
+    </li>
+  <% end %>
+</ul>
+
+<% if policy(IncidentEntry.new(incident: @incident)).create? %>
+  <h4>更新を追加</h4>
+  <%= bootstrap_form_with(model: [@incident, IncidentEntry.new], local: true) do |f| %>
+    <%= f.select :status, IncidentEntry.statuses.keys.map { |s| [t("enums.incident_entry.status.#{s}"), s] }, include_blank: true %>
+    <%= f.text_area :body %>
+    <%= f.submit "追加", class: "btn btn-primary" %>
+  <% end %>
+<% end %>

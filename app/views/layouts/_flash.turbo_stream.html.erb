@@ -1,0 +1,4 @@
+<%# turbo_stream で flash メッセージを表示する, flash.now[:notice] に値を設定 %>
+<%= turbo_stream.update "flash_messages" do %>
+  <%= render partial: "layouts/flash", locals: { flash: flash.to_hash } %>
+<% end %>

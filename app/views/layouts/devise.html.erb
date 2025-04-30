@@ -23,8 +23,11 @@
   </head>
 
   <body data-bs-theme="dark">
-    <div class="container">
-      <%= yield %>
+    <div class="d-flex align-items-center py-4 min-vh-100">
+      <main class="w-100 m-auto" style="max-width:400px">
+        <%= image_tag('logo.png', width: '100', height: '100') %>
+        <%= yield %>
+      </main>
     </div>
   </body>
 </html>
