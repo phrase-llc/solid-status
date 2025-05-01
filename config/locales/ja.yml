@@ -3,10 +3,20 @@ ja:
   activerecord:
     models:
       incident_entry: インシデント更新
+      user: ユーザー
+      organization: 組織
     attributes:
       incident_entry:
         status: ステータス
         body: 内容
+      user:
+        first_name: 名
+        last_name: 姓
+        display_name: 表示名
+      organization:
+        name: 組織名
+  errors:
+    organization_creation_failed: 組織の作成に失敗しました。
 
   enums:
     incident_entry:

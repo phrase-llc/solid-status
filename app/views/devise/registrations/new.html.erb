@@ -1,7 +1,21 @@
 <h2 class="mb-4"><%= t(".sign_up") %></h2>
 
-<%= bootstrap_form_with(model: resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= bootstrap_form_with(model: resource, as: resource_name, url: registration_path(resource_name), data: {controller: "users-registrations"} ) do |f| %>
   <%= render 'layouts/flash' %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.text_field :last_name, label: t("activerecord.attributes.user.last_name"), required: false, floating: true, data: { 'users-registrations-target': "lastName", action: 'users-registrations#updateDisplayName' } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.text_field :first_name, label: t("activerecord.attributes.user.first_name"), required: false, floating: true, data: { 'users-registrations-target': "firstName", action: 'users-registrations#updateDisplayName' } %>
+    </div>
+  </div>
+  <%= f.text_field :display_name, label: t("activerecord.attributes.user.display_name"), required: false, floating: true, data: { 'users-registrations-target': "displayName" } %>
+  
+  <%= bootstrap_fields_for :organization do |org_f| %>
+    <%= org_f.text_field :name, label: t("activerecord.attributes.organization.name"), required: false, floating: true %>
+  <% end %>
+  
   <%= f.email_field :email, autofocus: true, label: t("activerecord.attributes.user.email"), required: false, floating: true %>
   <%= f.password_field :password, label: t("activerecord.attributes.user.password"), required: false, floating: true %>
   <%= f.password_field :password_confirmation, label: t("activerecord.attributes.user.password_confirmation"), required: false, floating: true %>

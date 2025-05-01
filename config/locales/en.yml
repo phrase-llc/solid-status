@@ -28,4 +28,16 @@
 #       enabled: "ON"
 
 en:
+  activerecord:
+    models:
+      organization: Organization
+    attributes:
+      user:
+        first_name: First Name
+        last_name: Last Name
+        display_name: Display Name
+      organization:
+        name: Organization Name
+  errors:
+    organization_creation_failed: Failed to create the organization.
   hello: "Hello world"
