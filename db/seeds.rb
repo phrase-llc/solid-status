@@ -19,6 +19,9 @@ user = User.find_or_create_by!(email: "admin@example.com") do |u|
   u.password = "password"
   u.organization = organization
   u.confirmed_at = Time.current  # confirmable の対応
+  u.first_name = "太郎"
+  u.last_name = "山田"
+  u.display_name = "山田 太郎"
 end
 
 Membership.find_or_create_by!(user: user, product: product) do |m|
