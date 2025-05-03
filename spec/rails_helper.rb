@@ -23,7 +23,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -33,6 +33,7 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
+  config.include ActiveSupport::Testing::TimeHelpers
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
@@ -61,10 +62,26 @@ RSpec.configure do |config|
   # behaviour is considered legacy and will be removed in a future version.
   #
   # To enable this behaviour uncomment the line below.
-  # config.infer_spec_type_from_file_location!
+  config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, :js, type: :system) do
+    driven_by :playwright, options: { headless: true, browser_type: :chromium }
+  end
+
+  # NOTE: Rails8 からroutesデフォルトでルートが遅延ロードされるようになった影響でこの設定を入れないとdevise要因でテストが通らない。
+  #      この設定を入れることでテストが通るようになるが、後日アップデートで修正されれば削除できる見込み
+  # @see https://github.com/heartcombo/devise/issues/5705
+  # @see https://github.com/heartcombo/devise/pull/5728
+  config.before do
+    Rails.application.reload_routes_unless_loaded
+  end
 end

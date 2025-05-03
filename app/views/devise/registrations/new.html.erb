@@ -11,11 +11,11 @@
     </div>
   </div>
   <%= f.text_field :display_name, label: t("activerecord.attributes.user.display_name"), required: false, floating: true, data: { 'users-registrations-target': "displayName" } %>
-  
-  <%= bootstrap_fields_for :organization do |org_f| %>
-    <%= org_f.text_field :name, label: t("activerecord.attributes.organization.name"), required: false, floating: true %>
+
+  <%= f.fields_for :organization do |org| %>
+    <%= org.text_field :name, label: t("activerecord.attributes.organization.name"), required: false, floating: true %>
   <% end %>
-  
+
   <%= f.email_field :email, autofocus: true, label: t("activerecord.attributes.user.email"), required: false, floating: true %>
   <%= f.password_field :password, label: t("activerecord.attributes.user.password"), required: false, floating: true %>
   <%= f.password_field :password_confirmation, label: t("activerecord.attributes.user.password_confirmation"), required: false, floating: true %>

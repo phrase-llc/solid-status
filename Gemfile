@@ -51,9 +51,19 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "gimei"
+  gem "parallel_tests"
 end
 
 group :development do
+  gem "bullet"
+  gem "letter_opener"
+  gem "letter_opener_web"
+  gem "listen"
+  gem "rack-mini-profiler"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
@@ -62,6 +72,9 @@ group :test do
   gem "rspec-rails"
   gem "capybara"
   gem "capybara-playwright-driver"
+  gem "shoulda-matchers"
+  gem "simplecov"
+  gem "test-prof"
 end
 
 gem "devise", "~> 4.9"

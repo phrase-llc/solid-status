@@ -1,26 +1,19 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+
+  def new
+    build_resource({})
+    resource.build_organization # 組織を初期化
+    respond_with resource
+  end
 
   # POST /resource
   def create
     build_resource(sign_up_params)
 
-    # Create organization if name is provided
-    if params[:organization][:name].present?
-      organization = Organization.new(name: params[:organization][:name])
-      if organization.save
-        resource.organization = organization
-      else
-        flash[:alert] = t("errors.organization_creation_failed")
-        render :new and return
-      end
-    end
-
-    resource.save
-    yield resource if block_given?
-    if resource.persisted?
+    if resource.save
+      yield resource if block_given?
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
@@ -39,7 +32,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :display_name])
+  def after_inactive_sign_up_path_for(resource)
+    new_user_session_path
+  end
+
+  def sign_up_params
+    params.require(:user).permit(
+      :email, :password, :password_confirmation, :first_name, :last_name, :display_name,
+      organization_attributes: [:name]
+    )
   end
 end

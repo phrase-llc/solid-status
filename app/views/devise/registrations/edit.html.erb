@@ -10,12 +10,11 @@
 
   <hr>
   <h4 class="mb-3"><%= t("devise.registrations.edit.change_password", default: "パスワードを変更する場合") %></h4>
-  <%= f.password_field :password, label: t("activerecord.attributes.user.password") %>
-
   <% if @minimum_password_length %>
-    <br />
-    <em><%= @minimum_password_length %> characters minimum</em>
+    <% password_length = t("devise.shared.minimum_password_length", count: @minimum_password_length) %>
   <% end %>
+  <%= f.password_field :password, label: t("activerecord.attributes.user.password"), help: password_length %>
+
 
   <%= f.password_field :password_confirmation, label: t("activerecord.attributes.user.password_confirmation") %>
 

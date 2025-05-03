@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  belongs_to :organization, optional: true
+  belongs_to :organization
+  accepts_nested_attributes_for :organization
   has_many :memberships, dependent: :destroy
   has_many :products, through: :memberships
 
