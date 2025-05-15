@@ -79,7 +79,7 @@ ja:
       edit:
         change_my_password: パスワードを変更する
         change_your_password: パスワードを変更
-        confirm_new_password: 確認用新しいパスワード
+        confirm_new_password: 新しいパスワード（再入力）
         new_password: 新しいパスワード
       new:
         forgot_your_password: パスワードを忘れましたか？
@@ -100,6 +100,8 @@ ja:
         unhappy: 気に入りません
         update: 更新
         we_need_your_current_password_to_confirm_your_changes: 変更を反映するには現在のパスワードを入力してください
+        cancel_warning: アカウントを削除すると、すべてのデータが完全に消去されます。
+        change_password: パスワードを変更する場合
       new:
         sign_up: アカウント登録
       signed_up: アカウント登録が完了しました。
@@ -110,11 +112,11 @@ ja:
       updated: アカウント情報を変更しました。
       updated_but_not_signed_in: あなたのアカウントは正常に更新されましたが、パスワードが変更されたため、再度サインインしてください。
     sessions:
-      already_signed_out: 既にログアウト済みです。
+      already_signed_out: 既にサインアウト済みです。
       new:
         sign_in: サインイン
       signed_in: サインインしました。
-      signed_out: ログアウトしました。
+      signed_out: サインアウトしました。
     shared:
       links:
         back: 戻る

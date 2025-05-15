@@ -104,6 +104,8 @@ en:
         unhappy: "Unhappy?"
         update: Update
         we_need_your_current_password_to_confirm_your_changes: we need your current password to confirm your changes
+        cancel_warning: "If you cancel your account, all of your data will be permanently deleted. We cannot recover it later."
+        change_password: Change password
       new:
         sign_up: Sign up
       signed_up: Welcome! You have signed up successfully.

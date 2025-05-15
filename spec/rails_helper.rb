@@ -74,7 +74,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, :js, type: :system) do
-    driven_by :playwright, options: { headless: true, browser_type: :chromium }
+    driven_by :playwright, options: { headless: true, browser_type: :chromium, slowMo: 50, lang: 'ja' }
   end
 
   # NOTE: Rails8 からroutesデフォルトでルートが遅延ロードされるようになった影響でこの設定を入れないとdevise要因でテストが通らない。

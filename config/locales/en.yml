@@ -28,6 +28,9 @@
 #       enabled: "ON"
 
 en:
+  navigation:
+    account_settings: Account Settings
+    sign_out: Sign Out
   activerecord:
     models:
       organization: Organization

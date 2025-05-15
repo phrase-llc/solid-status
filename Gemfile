@@ -60,6 +60,7 @@ end
 
 group :development do
   gem "bullet"
+  gem "i18n-debug"
   gem "letter_opener"
   gem "letter_opener_web"
   gem "listen"
@@ -76,6 +77,8 @@ group :test do
   gem "simplecov"
   gem "test-prof"
 end
+
+gem "activerecord-session_store"
 
 gem "devise", "~> 4.9"
 

@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :trackable, :confirmable, :lockable
+         :trackable, :confirmable, :lockable, :timeoutable
 
   validates :first_name, :last_name, :display_name, presence: true
 

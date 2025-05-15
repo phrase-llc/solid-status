@@ -1,5 +1,8 @@
 # config/locales/ja.yml
 ja:
+  navigation:
+    account_settings: アカウント設定
+    sign_out: サインアウト
   activerecord:
     models:
       incident_entry: インシデント更新
