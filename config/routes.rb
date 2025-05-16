@@ -23,4 +23,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root to: "incidents#index"
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+    get '/login_as/:user_id', to: 'development/sessions#login_as'
+  end
 end
