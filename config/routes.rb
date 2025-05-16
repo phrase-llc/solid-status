@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :incidents do
-    resources :incident_entries, only: [:create]
+    resources :incident_entries, only: [ :create ]
   end
 
   devise_for :users, controllers: {
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   root to: "incidents#index"
 
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: '/letter_opener'
-    get '/login_as/:user_id', to: 'development/sessions#login_as'
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    get "/login_as/:user_id", to: "development/sessions#login_as"
   end
 end

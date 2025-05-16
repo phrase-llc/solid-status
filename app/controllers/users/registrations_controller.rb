@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-
   def new
     build_resource({})
     resource.build_organization # 組織を初期化
@@ -39,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(
       :email, :password, :password_confirmation, :first_name, :last_name, :display_name,
-      organization_attributes: [:name]
+      organization_attributes: [ :name ]
     )
   end
 end

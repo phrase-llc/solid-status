@@ -8,6 +8,6 @@ class CreateMemberships < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :memberships, [:user_id, :product_id], unique: true
+    add_index :memberships, [ :user_id, :product_id ], unique: true
   end
 end
