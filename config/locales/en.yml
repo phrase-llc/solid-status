@@ -31,10 +31,11 @@ en:
   navigation:
     account_settings: Account Settings
     sign_out: Sign Out
+    create: Create
   activerecord:
     models:
       organization: Organization
-      page: page
+      status_page: StatusPage
     attributes:
       user:
         first_name: First Name
@@ -44,4 +45,16 @@ en:
         name: Organization Name
   errors:
     organization_creation_failed: Failed to create the organization.
-  hello: "Hello world"
+  enums:
+    incident_entry:
+      status:
+        investigating: Investigating
+        identified: Identified
+        monitoring: Monitoring
+        resolved: Resolved
+        postmortem: Postmortem
+    membership:
+      role:
+        viewer: Viewer
+        editor: Editor
+        unassigned: Unassigned

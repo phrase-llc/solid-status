@@ -1,0 +1,8 @@
+<%= render @status_page %>
+
+<div>
+  <%= link_to "Edit this status_page", edit_status_page_path(@status_page) %> |
+  <%= link_to "Back to status_pages", status_pages_path %>
+
+  <%= button_to "Destroy this status_page", @status_page, method: :delete %>
+</div>

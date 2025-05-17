@@ -24,22 +24,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
   end
 
   create_table "incidents", force: :cascade do |t|
-    t.bigint "page_id", null: false
+    t.bigint "status_page_id", null: false
     t.string "title", null: false
     t.datetime "started_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["page_id"], name: "index_incidents_on_page_id"
+    t.index ["status_page_id"], name: "index_incidents_on_status_page_id"
   end
 
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "page_id", null: false
+    t.bigint "status_page_id", null: false
     t.string "role", default: "viewer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["page_id"], name: "index_memberships_on_page_id"
-    t.index ["user_id", "page_id"], name: "index_memberships_on_user_id_and_page_id", unique: true
+    t.index ["status_page_id"], name: "index_memberships_on_status_page_id"
+    t.index ["user_id", "status_page_id"], name: "index_memberships_on_user_id_and_status_page_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
@@ -49,15 +49,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pages", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.string "name", null: false
-    t.string "url", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_pages_on_organization_id"
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -65,6 +56,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "status_pages", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.string "name", null: false
+    t.string "url", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_status_pages_on_organization_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,8 +101,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
   end
 
   add_foreign_key "incident_entries", "incidents"
-  add_foreign_key "incidents", "pages"
-  add_foreign_key "memberships", "pages"
+  add_foreign_key "incidents", "status_pages"
+  add_foreign_key "memberships", "status_pages"
   add_foreign_key "memberships", "users"
-  add_foreign_key "pages", "organizations"
+  add_foreign_key "status_pages", "organizations"
 end

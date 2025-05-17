@@ -1,0 +1,12 @@
+<% content_for :title, "Editing status_page" %>
+
+<h1>Editing status_page</h1>
+
+<%= render "form", status_page: @status_page %>
+
+<br>
+
+<div>
+  <%= link_to "Show this status_page", @status_page %> |
+  <%= link_to "Back to status_pages", status_pages_path %>
+</div>

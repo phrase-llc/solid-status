@@ -11,12 +11,12 @@ class MembershipBasedPolicy < ApplicationPolicy
 
   def editor?
     return true if admin?
-    Membership.exists?(user: user, page: subject_page, role: "editor")
+    Membership.exists?(user: user, status_page: subject_page, role: "editor")
   end
 
   def viewer?
     return true if admin?
-    Membership.exists?(user: user, page: subject_page)
+    Membership.exists?(user: user, status_page: subject_page)
   end
 
   # この2つは各Policyでオーバーライドする

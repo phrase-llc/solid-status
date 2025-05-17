@@ -2,7 +2,7 @@ class User < ApplicationRecord
   belongs_to :organization
   accepts_nested_attributes_for :organization
   has_many :memberships, dependent: :destroy
-  has_many :pages, through: :memberships
+  has_many :status_pages, through: :memberships
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,

@@ -61,7 +61,7 @@ end
 group :development do
   gem "bullet"
   gem "i18n-debug"
-  gem 'i18n-tasks'
+  gem "i18n-tasks"
   gem "letter_opener"
   gem "letter_opener_web"
   gem "listen"
@@ -86,3 +86,7 @@ gem "devise", "~> 4.9"
 gem "pundit", "~> 2.5"
 
 gem "bootstrap_form"
+
+gem "responders"
+
+gem "enum_help"

@@ -3,13 +3,14 @@ ja:
   navigation:
     account_settings: アカウント設定
     sign_out: サインアウト
+    create: 作成
   activerecord:
     models:
       incident_entry: インシデント更新
       incident: インシデント
       user: ユーザー
       organization: 組織
-      page: ページ
+      status_page: ページ
     attributes:
       incident_entry:
         status: ステータス
@@ -20,12 +21,11 @@ ja:
         display_name: 表示名
       organization:
         name: 組織名
-      page:
+      status_page:
         name: ページ名
         url: URL
   errors:
     organization_creation_failed: 組織の作成に失敗しました。
-
   enums:
     incident_entry:
       status:
@@ -34,3 +34,8 @@ ja:
         monitoring: 監視中
         resolved: 復旧済
         postmortem: 再発防止レポート
+    membership:
+      role:
+        viewer: 閲覧のみ
+        editor: 編集可能
+        unassigned: 閲覧不可

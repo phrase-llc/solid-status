@@ -1,0 +1,18 @@
+<div class="row py-2 border-top" id="<%= dom_id status_page %>">
+  <div class="col-4 my-auto">
+    <%= status_page.name %>
+  </div>
+  <div class="col-4 my-auto">
+    <%= status_page.url %>
+  </div>
+  <div class="col-4">
+    <div class="d-flex justify-content-end">
+      <% if policy(status_page).edit? %>
+        <%= link_to "編集", edit_status_page_path(status_page), class: "btn btn-sm btn-outline-primary me-2" %>
+      <% end %>
+      <% if policy(status_page).destroy? %>
+        <%= button_to "削除", status_page, method: :delete, class: "btn btn-sm btn-outline-danger", data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %>
+      <% end %>
+    </div>
+  </div>
+</div>

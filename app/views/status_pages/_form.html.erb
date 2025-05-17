@@ -1,0 +1,32 @@
+<%= bootstrap_form_with(model: status_page, local: true) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :url, placeholder: "https://status.example.com" %>
+
+  <h5 class="mt-4">ユーザー権限</h5>
+
+  <%= f.fields_for :memberships do |m| %>
+    <%= m.hidden_field :id %>
+    <%= m.hidden_field :user_id %>
+    <div class="row">
+      <div class="col-4 my-auto">
+        <%= m.object.user.display_name %>
+      </div>
+      <div class="col-4 my-auto">
+        <%= m.object.user.email %>
+      </div>
+      <div class="col-4">
+        <%= m.select :role,
+                     options_for_select(Membership.roles.keys.map { |key|
+                       [I18n.t("enums.membership.role.#{key}"), key]
+                     }, m.object.role),
+                     { hide_label: true }, class: "form-select" %>
+
+
+        <%#= m.check_box :_destroy, {}, "1", "0" %>
+        <%#= m.label :_destroy, "削除", class: "form-check-label" %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

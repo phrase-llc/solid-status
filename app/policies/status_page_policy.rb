@@ -1,5 +1,4 @@
-# app/policies/page_policy.rb
-class PagePolicy < MembershipBasedPolicy
+class StatusPagePolicy < MembershipBasedPolicy
   class Scope < Scope
     def resolve
       if user.admin?

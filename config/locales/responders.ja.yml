@@ -1,0 +1,18 @@
+ja:
+  flash:
+    actions:
+      create:
+        notice: '%{resource_name}が作成されました。'
+        # alert: '%{resource_name} could not be created.'
+      update:
+        notice: '%{resource_name}が更新されました。'
+        alert: '%{resource_name}は更新できません。'
+      destroy:
+        notice: '%{resource_name}が削除されました。'
+        alert: '%{resource_name}は削除できません。'
+      duplicate:
+        notice: '%{resource_name}が作成されました。'
+        alert: '%{resource_name}は作成できません。'
+      create_start:
+        notice: '%{resource_name}を作成中です。完了後、メールで通知します。'
+        # alert: '%{resource_name}は作成できません。'

@@ -1,4 +1,4 @@
-# This file should ensure the existence of records required to run the application in every environment (pageion,
+# This file should ensure the existence of records required to run the application in every environment (status_pageion,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -10,7 +10,7 @@
 
 organization = Organization.find_or_create_by!(name: "Acme Inc")
 
-page = organization.pages.find_or_create_by!(
+status_page = organization.status_pages.find_or_create_by!(
   name: "API Service",
   url: "api.acme-status.com"
 )
@@ -25,11 +25,11 @@ user = User.find_or_create_by!(email: "admin@example.com") do |u|
   u.role = "admin"
 end
 
-Membership.find_or_create_by!(user: user, page: page) do |m|
+Membership.find_or_create_by!(user: user, status_page: status_page) do |m|
   m.role = "editor"
 end
 
-incident = page.incidents.find_or_create_by!(
+incident = status_page.incidents.find_or_create_by!(
   title: "認証エラーの障害",
   started_at: 1.hour.ago
 )
