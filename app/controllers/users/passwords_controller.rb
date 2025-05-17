@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
+
+  def verify_pundit?
+    false
+  end
+
   # GET /resource/password/new
   # def new
   #   super

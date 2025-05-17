@@ -3,6 +3,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   layout "application", only: %i[edit]
 
+  def verify_pundit?
+    false
+  end
+
   def new
     build_resource({})
     resource.build_organization # 組織を初期化

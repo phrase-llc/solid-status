@@ -1,0 +1,5 @@
+<%= bootstrap_form_with(model: page, local: true) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :url, placeholder: "https://status.example.com" %>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>

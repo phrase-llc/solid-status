@@ -34,6 +34,7 @@ en:
   activerecord:
     models:
       organization: Organization
+      page: page
     attributes:
       user:
         first_name: First Name

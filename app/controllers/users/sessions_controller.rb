@@ -4,6 +4,10 @@ class Users::SessionsController < Devise::SessionsController
   layout "devise"
   # before_action :configure_sign_in_params, only: [:create]
 
+  def verify_pundit?
+    false
+  end
+
   # GET /resource/sign_in
   # def new
   #   super

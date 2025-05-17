@@ -1,11 +1,11 @@
-# app/policies/incident_policy.rb
-class IncidentPolicy < MembershipBasedPolicy
+# app/policies/page_policy.rb
+class PagePolicy < MembershipBasedPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.joins(:page).where(pages: { organization_id: user.organization_id })
+        scope.where(organization_id: user.organization_id)
       else
-        scope.joins(page: :memberships).where(memberships: { user_id: user.id })
+        scope.joins(:memberships).where(memberships: { user_id: user.id })
       end
     end
   end
@@ -15,7 +15,7 @@ class IncidentPolicy < MembershipBasedPolicy
   end
 
   def create?
-    same_organization? && editor?
+    same_organization? && admin?
   end
 
   def update?
@@ -29,10 +29,10 @@ class IncidentPolicy < MembershipBasedPolicy
   private
 
   def subject_page
-    record.page
+    record
   end
 
   def subject_organization_id
-    record.page.organization_id
+    record.organization_id
   end
 end

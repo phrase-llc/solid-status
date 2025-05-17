@@ -61,6 +61,7 @@ end
 group :development do
   gem "bullet"
   gem "i18n-debug"
+  gem 'i18n-tasks'
   gem "letter_opener"
   gem "letter_opener_web"
   gem "listen"

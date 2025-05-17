@@ -6,8 +6,10 @@ ja:
   activerecord:
     models:
       incident_entry: インシデント更新
+      incident: インシデント
       user: ユーザー
       organization: 組織
+      page: ページ
     attributes:
       incident_entry:
         status: ステータス
@@ -18,6 +20,9 @@ ja:
         display_name: 表示名
       organization:
         name: 組織名
+      page:
+        name: ページ名
+        url: URL
   errors:
     organization_creation_failed: 組織の作成に失敗しました。
 

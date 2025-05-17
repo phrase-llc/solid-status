@@ -53,6 +53,6 @@ class IncidentsController < ApplicationController
   end
 
   def incident_params
-    params.require(:incident).permit(:product_id, :title, :started_at)
+    params.require(:incident).permit(:page_id, :title, :started_at)
   end
 end

@@ -1,11 +1,16 @@
-class IncidentEntryPolicy < ApplicationPolicy
+# app/policies/incident_entry_policy.rb
+class IncidentEntryPolicy < MembershipBasedPolicy
   def create?
-    membership&.role == "editor"
+    same_organization? && editor?
   end
 
   private
 
-  def membership
-    @membership ||= Membership.find_by(user: user, product: record.incident.product)
+  def subject_page
+    record.incident.page
+  end
+
+  def subject_organization_id
+    record.incident.page.organization_id
   end
 end

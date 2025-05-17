@@ -24,22 +24,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
   end
 
   create_table "incidents", force: :cascade do |t|
-    t.bigint "product_id", null: false
+    t.bigint "page_id", null: false
     t.string "title", null: false
     t.datetime "started_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_incidents_on_product_id"
+    t.index ["page_id"], name: "index_incidents_on_page_id"
   end
 
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "product_id", null: false
+    t.bigint "page_id", null: false
     t.string "role", default: "viewer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_memberships_on_product_id"
-    t.index ["user_id", "product_id"], name: "index_memberships_on_user_id_and_product_id", unique: true
+    t.index ["page_id"], name: "index_memberships_on_page_id"
+    t.index ["user_id", "page_id"], name: "index_memberships_on_user_id_and_page_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
@@ -49,14 +49,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "pages", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "name", null: false
-    t.string "domain", null: false
+    t.string "url", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["domain"], name: "index_products_on_domain", unique: true
-    t.index ["organization_id"], name: "index_products_on_organization_id"
+    t.index ["organization_id"], name: "index_pages_on_organization_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -90,6 +89,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
     t.string "last_name"
     t.string "display_name"
     t.bigint "organization_id"
+    t.string "role", default: "member", null: false
+    t.boolean "disabled", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -100,8 +101,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
   end
 
   add_foreign_key "incident_entries", "incidents"
-  add_foreign_key "incidents", "products"
-  add_foreign_key "memberships", "products"
+  add_foreign_key "incidents", "pages"
+  add_foreign_key "memberships", "pages"
   add_foreign_key "memberships", "users"
-  add_foreign_key "products", "organizations"
+  add_foreign_key "pages", "organizations"
 end

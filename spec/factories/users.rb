@@ -12,5 +12,11 @@ FactoryBot.define do
     first_name { gimei.first.kanji }
     display_name { "#{last_name} #{first_name}" }
     organization
+    role { 'member' }
+    disabled { false }
+
+    trait :admin do
+      role { 'admin' }
+    end
   end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pages
   resources :incidents do
     resources :incident_entries, only: [ :create ]
   end
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  root to: "incidents#index"
+  root to: "pages#index"
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

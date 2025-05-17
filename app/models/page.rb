@@ -1,4 +1,4 @@
-class Product < ApplicationRecord
+class Page < ApplicationRecord
   belongs_to :organization
 
   # has_many :components, dependent: :destroy
@@ -7,5 +7,5 @@ class Product < ApplicationRecord
   has_many :users, through: :memberships
 
   validates :name, presence: true
-  validates :domain, presence: true, uniqueness: true
+  validates :url, presence: true, uniqueness: true
 end

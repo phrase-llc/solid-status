@@ -38,6 +38,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[8.0]
       t.string :display_name
 
       t.references :organization
+      t.string :role, null: false, default: "member"
+      t.boolean :disabled, null: false, default: false
 
       t.timestamps null: false
     end
