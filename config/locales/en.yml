@@ -32,6 +32,7 @@ en:
     account_settings: Account Settings
     sign_out: Sign Out
     create: Create
+    edit: Edit
   activerecord:
     models:
       organization: Organization

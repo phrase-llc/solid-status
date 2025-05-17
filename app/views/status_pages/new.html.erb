@@ -1,6 +1,6 @@
-<% content_for :title, "New status_page" %>
+<% content_for :title, StatusPage.model_name.human + t("navigation.create")  %>
 
-<h1>New status_page</h1>
+<h1 class="h4"><%= StatusPage.model_name.human + t("navigation.create") %></h1>
 
 <%= render "form", status_page: @status_page %>
 

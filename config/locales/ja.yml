@@ -4,6 +4,7 @@ ja:
     account_settings: アカウント設定
     sign_out: サインアウト
     create: 作成
+    edit: 編集
   activerecord:
     models:
       incident_entry: インシデント更新
