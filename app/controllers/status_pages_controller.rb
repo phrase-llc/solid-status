@@ -58,7 +58,7 @@ class StatusPagesController < ApplicationController
   end
 
   def status_page_params
-    params.require(:status_page).permit(:name, :url, memberships_attributes: [:id, :user_id, :role])
+    params.require(:status_page).permit(:name, :url, memberships_attributes: [ :id, :user_id, :role ])
   end
 
   def ensure_all_memberships_present(status_page)

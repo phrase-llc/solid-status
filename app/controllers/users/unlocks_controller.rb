@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::UnlocksController < Devise::UnlocksController
-
   def verify_pundit?
     false
   end
