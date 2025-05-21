@@ -1,10 +1,10 @@
 <%= render @incident %>
 
 <div>
-  <%= link_to "Edit this incident", edit_incident_path(@incident) %> |
-  <%= link_to "Back to incidents", incidents_path %>
+  <%= link_to "Edit this incident", edit_status_page_incident_path(@incident) %> |
+  <%= link_to "Back to incidents", status_page_incidents_path(@incident.status_page) %>
 
-  <%= button_to "Destroy this incident", @incident, method: :delete %>
+  <%= button_to "Destroy this incident", status_page_incident_path(@incident.status_page, @incident), method: :delete %>
 </div>
 
 <h3>更新履歴</h3>
@@ -20,7 +20,7 @@
 
 <% if policy(IncidentEntry.new(incident: @incident)).create? %>
   <h4>更新を追加</h4>
-  <%= bootstrap_form_with(model: [@incident, IncidentEntry.new], local: true) do |f| %>
+  <%= bootstrap_form_with(model: [@status_page, @incident, IncidentEntry.new], local: true) do |f| %>
     <%= f.select :status, IncidentEntry.statuses.keys.map { |s| [t("enums.incident_entry.status.#{s}"), s] }, include_blank: true %>
     <%= f.text_area :body %>
     <%= f.submit "追加", class: "btn btn-primary" %>

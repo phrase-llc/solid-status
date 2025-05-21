@@ -1,5 +1,6 @@
-class IncidentsController < ApplicationController
+class StatusPages::IncidentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_status_page
   before_action :set_incident, only: %i[show edit update destroy]
   before_action :authorize_incident, only: %i[show edit update destroy]
   after_action :verify_policy_scoped, only: :index
@@ -17,14 +18,16 @@ class IncidentsController < ApplicationController
   end
 
   def create
-    @incident = Incident.new(incident_params)
+    @incident = @status_page.incidents.build(incident_params)
     authorize @incident
+    @incident.save
+    respond_with @incident, location: [@status_page, @incident]
 
-    if @incident.save
-      redirect_to @incident, notice: "Incident was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
+    # if @incident.save
+    #   redirect_to [@status_page, @incident], notice: "Incident was successfully created."
+    # else
+    #   render :new, status: :unprocessable_entity
+    # end
   end
 
   def edit; end
@@ -44,6 +47,10 @@ class IncidentsController < ApplicationController
 
   private
 
+  def set_status_page
+    @status_page = StatusPage.find(params[:status_page_id])
+  end
+
   def set_incident
     @incident = Incident.find(params[:id])
   end
@@ -53,6 +60,6 @@ class IncidentsController < ApplicationController
   end
 
   def incident_params
-    params.require(:incident).permit(:page_id, :title, :started_at)
+    params.require(:incident).permit(:title, :started_at)
   end
 end

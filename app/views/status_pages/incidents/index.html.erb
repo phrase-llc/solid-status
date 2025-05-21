@@ -6,9 +6,9 @@
   <% @incidents.each do |incident| %>
     <%= render incident %>
     <p>
-      <%= link_to "Show this incident", incident %>
+      <%= link_to "Show this incident", status_page_incident_path(incident.status_page, incident) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New incident", new_incident_path %>
+<%= link_to "New incident", new_status_page_incident_path(@status_page) %>

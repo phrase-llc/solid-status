@@ -8,5 +8,5 @@
 
 <div>
   <%= link_to "Show this incident", @incident %> |
-  <%= link_to "Back to incidents", incidents_path %>
+  <%= link_to "Back to incidents", status_page_incidents_path(@incident.status_page) %>
 </div>
