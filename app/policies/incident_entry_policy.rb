@@ -7,10 +7,10 @@ class IncidentEntryPolicy < MembershipBasedPolicy
   private
 
   def subject_page
-    record.incident.page
+    record.incident.status_page
   end
 
   def subject_organization_id
-    record.incident.page.organization_id
+    record.incident.status_page.organization_id
   end
 end

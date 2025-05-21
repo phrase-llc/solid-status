@@ -3,9 +3,9 @@ class IncidentPolicy < MembershipBasedPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.joins(:page).where(pages: { organization_id: user.organization_id })
+        scope.joins(:status_page).where(status_page: { organization_id: user.organization_id })
       else
-        scope.joins(page: :memberships).where(memberships: { user_id: user.id })
+        scope.joins(status_page: :memberships).where(memberships: { user_id: user.id })
       end
     end
   end
@@ -29,10 +29,10 @@ class IncidentPolicy < MembershipBasedPolicy
   private
 
   def subject_page
-    record.page
+    record.status_page
   end
 
   def subject_organization_id
-    record.page.organization_id
+    record.status_page.organization_id
   end
 end
