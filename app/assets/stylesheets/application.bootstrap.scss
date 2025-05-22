@@ -1,6 +1,19 @@
+$font-size-base: 0.875rem !default; // デフォルトは1rem（16px）なので、0.875remで14px相当
+
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 .logo {
   height: 34px;
+}
+
+// 入力内容にあわせてtextareaの高さを変更
+textarea.form-control.auto-sizing {
+  field-sizing: content; // row,colの指定は無効になるが未対応のブラウザではrow,colが有効になる
+  min-height: 5rem;
+}
+
+// auto-sizingを使うが新規作成などで未入力なときは1行にしたいとき
+textarea.form-control.min-h-1 {
+  min-height: 1rem;
 }

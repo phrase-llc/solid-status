@@ -36,5 +36,6 @@ incident = status_page.incidents.find_or_create_by!(
 
 incident.incident_entries.find_or_create_by!(
   status: "investigating",
-  body: "現在、APIがエラーを返す問題を調査しています。"
+  body: "現在、APIがエラーを返す問題を調査しています。",
+  posted_at: 1.hour.ago
 )

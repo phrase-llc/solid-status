@@ -1,4 +1,4 @@
-class StatusPages::IncidentEntriesController < ApplicationController
+class StatusPages::Incidents::IncidentEntriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_incident
   after_action :verify_authorized
@@ -22,6 +22,6 @@ class StatusPages::IncidentEntriesController < ApplicationController
   end
 
   def incident_entry_params
-    params.require(:incident_entry).permit(:status, :body)
+    params.require(:incident_entry).permit(:status, :body, :posted_at)
   end
 end

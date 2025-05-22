@@ -5,17 +5,23 @@ ja:
     sign_out: サインアウト
     create: 作成
     edit: 編集
+    index: 一覧
   activerecord:
     models:
-      incident_entry: インシデント更新
+      incident_entry: インシデント詳細
       incident: インシデント
       user: ユーザー
       organization: 組織
       status_page: ページ
     attributes:
+      incident:
+        title: タイトル
+        started_at: 発生日時
+        ended_at: 復旧日時
       incident_entry:
         status: ステータス
         body: 内容
+        posted_at: 投稿日時
       user:
         first_name: 名
         last_name: 姓

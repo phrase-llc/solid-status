@@ -8,6 +8,9 @@
   <div class="col-4">
     <div class="d-flex justify-content-end">
       <% if policy(status_page).edit? %>
+        <%= link_to "インシデント", status_page_incidents_path(status_page), class: "btn btn-sm btn-outline-primary me-2" %>
+      <% end %>
+      <% if policy(status_page).edit? %>
         <%= link_to "編集", edit_status_page_path(status_page), class: "btn btn-sm btn-outline-primary me-2" %>
       <% end %>
       <% if policy(status_page).destroy? %>

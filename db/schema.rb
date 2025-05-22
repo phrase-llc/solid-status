@@ -18,6 +18,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
     t.bigint "incident_id", null: false
     t.string "status", default: "investigating", null: false
     t.text "body"
+    t.datetime "posted_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["incident_id"], name: "index_incident_entries_on_incident_id"
@@ -27,6 +28,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_15_025129) do
     t.bigint "status_page_id", null: false
     t.string "title", null: false
     t.datetime "started_at", null: false
+    t.datetime "ended_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["status_page_id"], name: "index_incidents_on_status_page_id"

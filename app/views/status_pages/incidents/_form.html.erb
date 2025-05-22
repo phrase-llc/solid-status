@@ -1,6 +1,7 @@
 <%= bootstrap_form_with(model: [@status_page, incident], local: true) do |form| %>
   <%= form.text_field :title %>
-  <%= form.datetime_select :started_at %>
+  <%= form.datetime_field :started_at, min: Date.new(1900, 01, 01), max: Date.new(2200, 12, 31), include_seconds: false, value: (@incident.started_at || Time.current).change(sec: 0) %>
+  <%= form.datetime_field :ended_at, min: Date.new(1900, 01, 01), max: Date.new(2200, 12, 31), include_seconds: false %>
 
-  <%= form.submit %>
+  <%= form.submit class: "btn btn-primary" %>
 <% end %>

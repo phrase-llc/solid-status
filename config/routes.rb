@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :status_pages do
     resources :incidents, controller: "status_pages/incidents" do
-      resources :incident_entries, controller: "status_pages/incident_entries", only: [ :create ]
+      resources :incident_entries, controller: "status_pages/incidents/incident_entries", only: [ :create ]
     end
   end
 

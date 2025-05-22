@@ -90,3 +90,5 @@ gem "bootstrap_form"
 gem "responders"
 
 gem "enum_help"
+
+gem "rinku"

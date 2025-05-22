@@ -1,14 +1,35 @@
-<% content_for :title, "Incidents" %>
+<% title = @status_page.name + " " + t("activerecord.models.incident") + t("navigation.index") %>
+<% content_for :title, title %>
 
-<h1>Incidents</h1>
-
-<div id="incidents">
-  <% @incidents.each do |incident| %>
-    <%= render incident %>
-    <p>
-      <%= link_to "Show this incident", status_page_incident_path(incident.status_page, incident) %>
-    </p>
-  <% end %>
+<div class="row">
+  <div class="col-8">
+    <h1 class="h3"><%= title %></h1>
+  </div>
+  <div class="col-4 d-flex justify-content-end">
+    <%= link_to t("navigation.create"),
+                new_status_page_incident_path(@status_page),
+                class: "btn btn-outline-primary"
+    %>
+  </div>
 </div>
 
-<%= link_to "New incident", new_status_page_incident_path(@status_page) %>
+<div class="card shadow mt-3">
+  <div class="card-body mx-3">
+    <div class="row py-2">
+      <div class="col-6 mt-auto">
+        <%= Incident.human_attribute_name(:title) %>
+      </div>
+      <div class="col-4 mt-auto">
+        <%= Incident.human_attribute_name(:started_at) %>
+      </div>
+      <div class="col-2 d-flex justify-content-end">
+        &nbsp;
+      </div>
+    </div>
+    <div id="incidents">
+      <% @incidents.each do |incident| %>
+        <%= render incident %>
+      <% end %>
+    </div>
+  </div>
+</div>

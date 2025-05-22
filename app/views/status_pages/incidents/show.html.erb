@@ -1,28 +1,43 @@
-<%= render @incident %>
+<% title = @status_page.name + " " + t("activerecord.models.incident_entry") + t("navigation.edit") %>
+<% content_for :title, title %>
 
-<div>
-  <%= link_to "Edit this incident", edit_status_page_incident_path(@incident) %> |
-  <%= link_to "Back to incidents", status_page_incidents_path(@incident.status_page) %>
-
-  <%= button_to "Destroy this incident", status_page_incident_path(@incident.status_page, @incident), method: :delete %>
+<div class="row">
+  <div class="col-8">
+    <h1 class="h3"><%= @incident.title %></h1>
+  </div>
+  <div class="col-4 d-flex justify-content-end">
+    <% if policy(@incident).destroy? %>
+      <div class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="recordOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">操作</button>
+        <ul class="dropdown-menu" aria-labelledby="recordOptionsDropdown">
+          <li>
+            <%= link_to "削除", status_page_incident_path(@incident.status_page, @incident), method: :delete, class: "dropdown-item text-danger", data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<h3>更新履歴</h3>
-<ul class="list-group mb-4">
-  <% @incident.incident_entries.order(:created_at).each do |entry| %>
-    <li class="list-group-item">
-      <strong><%= t("enums.incident_entry.status.#{entry.status}") %></strong>
-      <small class="text-muted">（<%= l(entry.created_at, format: :short) %>）</small>
-      <p><%= simple_format(entry.body) %></p>
-    </li>
-  <% end %>
-</ul>
+<div class="row py-2">
+  <div class="col-12 mt-auto">
+    <% if policy(IncidentEntry.new(incident: @incident)).create? %>
+      <%= render "status_pages/incidents/incident_entries/form", status_page: @status_page, incident: @incident %>
+    <% end %>
+  </div>
+</div>
+<div class="row py-2">
+  <div class="col-12 mt-auto">
+    <h5>履歴</h5>
+    <ul class="list-group mb-4">
+      <% @incident.incident_entries.order(created_at: :desc).each do |entry| %>
+        <li class="list-group-item">
+          <strong><%= t("enums.incident_entry.status.#{entry.status}") %></strong>
+          <small class="text-muted">（<%= l(entry.posted_at, format: :long) %>）</small>
+          <p><%= raw Rinku.auto_link(simple_format(h(entry.body)), :all, 'target="_blank"') %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
-<% if policy(IncidentEntry.new(incident: @incident)).create? %>
-  <h4>更新を追加</h4>
-  <%= bootstrap_form_with(model: [@status_page, @incident, IncidentEntry.new], local: true) do |f| %>
-    <%= f.select :status, IncidentEntry.statuses.keys.map { |s| [t("enums.incident_entry.status.#{s}"), s] }, include_blank: true %>
-    <%= f.text_area :body %>
-    <%= f.submit "追加", class: "btn btn-primary" %>
-  <% end %>
-<% end %>

@@ -7,7 +7,7 @@ class StatusPages::IncidentsController < ApplicationController
   after_action :verify_authorized, except: %w[index new]
 
   def index
-    @incidents = policy_scope(Incident)
+    @incidents = policy_scope(Incident).order(created_at: :desc)
   end
 
   def show; end
@@ -60,6 +60,6 @@ class StatusPages::IncidentsController < ApplicationController
   end
 
   def incident_params
-    params.require(:incident).permit(:title, :started_at)
+    params.require(:incident).permit(:title, :started_at, :ended_at)
   end
 end

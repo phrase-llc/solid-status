@@ -1,17 +1,25 @@
-<div id="<%= dom_id incident %>">
-  <p>
-    <strong>Page:</strong>
-    <%= incident.status_page_id %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
+<div class="row py-2 border-top" id="<%= dom_id incident %>">
+  <div class="col-6 my-auto">
     <%= incident.title %>
-  </p>
-
-  <p>
-    <strong>Started at:</strong>
+  </div>
+  <div class="col-4 my-auto">
     <%= l incident.started_at, format: :long %>
-  </p>
-
+  </div>
+  <div class="col-2">
+    <div class="d-flex justify-content-end">
+      <% if policy(incident).edit? %>
+        <%= link_to "更新", status_page_incident_path(incident.status_page, incident), class: "btn btn-sm btn-outline-primary me-2" %>
+      <% end %>
+      <% if policy(incident).destroy? %>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="recordOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">その他</button>
+          <ul class="dropdown-menu" aria-labelledby="recordOptionsDropdown">
+            <li>
+              <%= link_to "削除", incident.status_page, method: :delete, class: "dropdown-item text-danger small", data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

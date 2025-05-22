@@ -1,0 +1,20 @@
+<%= bootstrap_form_with(model: [status_page, incident, IncidentEntry.new], local: true) do |f| %>
+  <div class="row">
+    <div class="col-6">
+      <%= f.select :status, IncidentEntry.statuses.keys.map { |s| [t("enums.incident_entry.status.#{s}"), s] }, include_blank: true %>
+    </div>
+    <div class="col-6">
+      <%= f.datetime_field :posted_at, min: Date.new(1900, 01, 01), max: Date.new(2200, 12, 31), include_seconds: false, value: Time.current.change(sec: 0) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= f.text_area :body, class: "auto-sizing" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <%= f.submit "更新", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

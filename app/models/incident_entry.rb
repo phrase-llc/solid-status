@@ -10,4 +10,5 @@ class IncidentEntry < ApplicationRecord
   }
 
   validates :status, presence: true
+  validates :posted_at, presence: true
 end
