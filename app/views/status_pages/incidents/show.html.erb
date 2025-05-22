@@ -22,22 +22,18 @@
 <div class="row py-2">
   <div class="col-12 mt-auto">
     <% if policy(IncidentEntry.new(incident: @incident)).create? %>
-      <%= render "status_pages/incidents/incident_entries/form", status_page: @status_page, incident: @incident %>
+      <%= render "status_pages/incidents/incident_entries/form", status_page: @status_page, incident: @incident, incident_entry: IncidentEntry.new %>
     <% end %>
   </div>
 </div>
+
 <div class="row py-2">
   <div class="col-12 mt-auto">
     <h5>履歴</h5>
-    <ul class="list-group mb-4">
+    <ul class="list-group mb-4" id="incident_entries">
       <% @incident.incident_entries.order(created_at: :desc).each do |entry| %>
-        <li class="list-group-item">
-          <strong><%= t("enums.incident_entry.status.#{entry.status}") %></strong>
-          <small class="text-muted">（<%= l(entry.posted_at, format: :long) %>）</small>
-          <p><%= raw Rinku.auto_link(simple_format(h(entry.body)), :all, 'target="_blank"') %></p>
-        </li>
+        <%= render "status_pages/incidents/incident_entries/incident_entry", status_page: entry.incident.status_page, incident: entry.incident, incident_entry: entry %>
       <% end %>
     </ul>
   </div>
 </div>
-

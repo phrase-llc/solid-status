@@ -4,6 +4,18 @@ class IncidentEntryPolicy < MembershipBasedPolicy
     same_organization? && editor?
   end
 
+  def edit?
+    same_organization? && editor?
+  end
+
+  def update?
+    same_organization? && editor?
+  end
+
+  def destroy?
+    same_organization? && editor?
+  end
+
   private
 
   def subject_page

@@ -1,0 +1,21 @@
+<turbo-frame id="incident_entry_<%= incident_entry.id %>">
+  <div class="row">
+    <div class="col-6">
+      <strong><%= t("enums.incident_entry.status.#{incident_entry.status}") %></strong>
+    </div>
+    <div class="col-6 d-flex justify-content-between">
+      <%= l(incident_entry.posted_at, format: :long) %>
+      <% if policy(incident_entry).update? %>
+        <%= link_to "編集", edit_status_page_incident_incident_entry_path(@incident.status_page, @incident, incident_entry), data: { turbo_frame: "incident_entry_#{incident_entry.id}" }, class: "btn btn-sm btn-outline-secondary ms-auto ms-auto" %>
+      <% end %>
+      <% if policy(incident_entry).destroy? %>
+        <%= link_to "削除", status_page_incident_incident_entry_path(@incident.status_page, @incident, incident_entry), method: :delete, class: "btn btn-sm btn-outline-danger ms-2", data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p><%= raw Rinku.auto_link(simple_format(h(incident_entry.body)), :all, 'target="_blank"') %></p>
+    </div>
+  </div>
+</turbo-frame>
