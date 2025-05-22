@@ -1,5 +1,5 @@
-<turbo-frame id="incident_entry_<%= incident_entry.id %>">
-  <%= bootstrap_form_with(model: [status_page, incident, incident_entry]) do |f| %>
+<turbo-frame id="incident_entry_<%= incident_entry.new_record? ? "new" : incident_entry.id %>">
+  <%= bootstrap_form_with(model: [status_page, incident, incident_entry], local: !incident_entry.persisted?, id: "incident_entry_form") do |f| %>
     <div class="row">
       <div class="col-6">
         <%= f.select :status, IncidentEntry.statuses.keys.map { |s| [t("enums.incident_entry.status.#{s}"), s] }, include_blank: true %>

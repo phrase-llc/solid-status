@@ -11,7 +11,7 @@ class StatusPages::Incidents::IncidentEntriesController < ApplicationController
     if @entry.save
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.prepend("incident_entries", partial: "status_pages/incidents/incident_entries/incident_entry", locals: { incident_entry: @entry, incident: @incident, status_page: @incident.status_page })
+          render :create, locals: { entry: @entry, incident: @incident }
         end
         format.html { redirect_to status_page_incident_path(@incident.status_page, @incident), notice: "更新を追加しました。" }
       end
@@ -29,7 +29,10 @@ class StatusPages::Incidents::IncidentEntriesController < ApplicationController
   def update
     authorize @incident_entry
     if @incident_entry.update(incident_entry_params)
-      render partial: "status_pages/incidents/incident_entries/incident_entry", locals: { incident_entry: @incident_entry, incident: @incident, status_page: @incident.status_page }
+      respond_to do |format|
+        format.turbo_stream { render :update, locals: { incident_entry: @incident_entry, incident: @incident } }
+        format.html { redirect_to status_page_incident_path(@incident.status_page, @incident), notice: "更新を更新しました。" }
+      end
     else
       render partial: "status_pages/incidents/incident_entries/form", locals: { incident_entry: @incident_entry, incident: @incident, status_page: @incident.status_page }, status: :unprocessable_entity
     end

@@ -1,0 +1,1 @@
+<%= turbo_stream.replace @incident_entry, partial: "status_pages/incidents/incident_entries/incident_entry", locals: { incident_entry: @incident_entry, incident: @incident, status_page: @incident.status_page } %>
