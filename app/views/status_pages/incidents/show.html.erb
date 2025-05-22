@@ -29,7 +29,7 @@
 
 <div class="row py-2">
   <div class="col-12 mt-auto">
-    <h5>履歴</h5>
+    <h2 class="h4 border-bottom mb-2 pb-2">更新履歴</h2>
     <ul class="list-group mb-4" id="incident_entries">
       <% @incident.incident_entries.order(created_at: :desc).each do |entry| %>
         <%= render "status_pages/incidents/incident_entries/incident_entry", status_page: entry.incident.status_page, incident: entry.incident, incident_entry: entry %>
