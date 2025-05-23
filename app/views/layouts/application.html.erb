@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <title><%= content_for(:title) || "Solid Status" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,49 +23,54 @@
   </head>
 
   <body data-bs-theme="dark">
-    <header>
-      <nav class="navbar navbar-expand-md pb-0 bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            SolidStatus
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav nav-pills custom-pills me-auto flex-column flex-md-row">
-              <li class="nav-item">
-                <%= link_to StatusPage.model_name.human, status_pages_path, class: "nav-link" %>
-              </li>
-            </ul>
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-muted pro-pic" href="#" aria-expanded="false" aria-haspopup="true" data-bs-toggle="dropdown">
-                  <img class="rounded-circle" alt="user" src="<%= asset_path 'user-solid.png' %>" width="20">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end user-dd">
-                  <div class="d-flex no-block align-items-center p-3 mb-2 border-bottom">
-                    <div>
-                      <img class="rounded" alt="user" src="<%= asset_path 'user-solid.png' %>" width="80">
-                    </div>
-                    <div class="ms-2">
-                      <h4 class="mb-0"><%= current_user&.display_name || "Guest" %></h4>
-                      <p class="mb-0"><%= current_user&.email || "guest@example.com" %></p>
-                    </div>
-                  </div>
-                  <%= link_to t('navigation.account_settings'), edit_user_registration_path, class: "dropdown-item" %>
-                  <div class="dropdown-divider"></div>
-                  <%= link_to t('navigation.sign_out'), destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %>
-                </div>
-              </li>
-            </ul>
-          </div>
+    <!-- モバイル用ナビバー -->
+    <nav class="navbar navbar-dark bg-dark d-md-none">
+      <div class="container-fluid">
+        <button class="btn btn-outline-light" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar"
+                aria-controls="mobileSidebar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <span class="navbar-brand mb-0 h1">SolidStatus</span>
+      </div>
+    </nav>
+
+    <div class="d-flex">
+
+      <!-- オフキャンバス：モバイル時のみ -->
+      <div class="offcanvas offcanvas-start d-md-none bg-dark text-light"
+           tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+        <div class="offcanvas-header border-bottom border-secondary">
+          <h5 class="offcanvas-title" id="mobileSidebarLabel">SolidStatus</h5>
+          <button type="button" class="btn-close btn-close-white"
+                  data-bs-dismiss="offcanvas" aria-label="閉じる"></button>
         </div>
-      </nav>
-    </header>
-    <div class="container p-4">
-      <%= render 'layouts/flash' %>
-      <%= yield %>
+        <div class="offcanvas-body p-0">
+          <nav class="nav flex-column vh-100">
+            <a class="nav-link active text-light" href="<%= status_pages_path %>"><i class="bi bi-house-door-fill me-2"></i><%= StatusPage.model_name.human %></a>
+            <a class="nav-link text-light" href="#"><i class="bi bi-gear-fill me-2"></i>設定</a>
+            <a class="nav-link text-light" href="#"><i class="bi bi-people-fill me-2"></i>ユーザー管理</a>
+            <a class="nav-link text-light" href="#"><i class="bi bi-info-circle-fill me-2"></i>ヘルプ</a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- デスクトップ用サイドバー -->
+      <aside class="d-none d-md-flex flex-column bg-dark text-light vh-100 p-3">
+        <h5 class="text-light mb-3">SolidStatus</h5>
+        <nav class="nav flex-column">
+          <a class="nav-link active text-light" href="<%= status_pages_path %>"><i class="bi bi-house-door-fill me-2"></i><%= StatusPage.model_name.human %></a>
+          <a class="nav-link text-light" href="#"><i class="bi bi-gear-fill me-2"></i>設定</a>
+          <a class="nav-link text-light" href="#"><i class="bi bi-people-fill me-2"></i>ユーザー管理</a>
+          <a class="nav-link text-light" href="#"><i class="bi bi-info-circle-fill me-2"></i>ヘルプ</a>
+        </nav>
+      </aside>
+
+      <!-- メインコンテンツ -->
+      <main class="flex-fill p-4">
+        <%= render 'layouts/flash' %>
+        <%= yield %>
+      </main>
     </div>
   </body>
 </html>
