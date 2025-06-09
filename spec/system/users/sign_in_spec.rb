@@ -64,8 +64,7 @@ RSpec.describe 'Users', :js do
     it 'サインイン済みアカウントでサインアウトできる' do
       sign_in(user)
       visit root_path
-      expect(page).to have_content 'Status Pages'
-      
+      expect(page).to have_content 'サインアウト'
       click_on 'サインアウト'
       expect(page).to have_content 'サインアウトしました。'
     end
