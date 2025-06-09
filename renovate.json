@@ -39,8 +39,7 @@
       "labels": ["major-update", "breaking-change"]
     },
     {
-      "matchManagers": ["bundler", "nodenv", "rbenv"],
-      "matchPackageNames": ["ruby", "node", "nodejs"],
+      "matchManagers": ["ruby-version", "nvm"],
       "commitMessagePrefix": "feat(runtime)!: ",
       "labels": ["runtime-update", "manual-review"],
       "reviewers": ["@owner"],
