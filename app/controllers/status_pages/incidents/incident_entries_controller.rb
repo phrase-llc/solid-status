@@ -2,7 +2,7 @@ class StatusPages::Incidents::IncidentEntriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_incident
   after_action :verify_authorized
-  before_action :set_incident_entry, only: [:edit, :update, :destroy]
+  before_action :set_incident_entry, only: [ :edit, :update, :destroy ]
 
   def create
     @entry = @incident.incident_entries.build(incident_entry_params)

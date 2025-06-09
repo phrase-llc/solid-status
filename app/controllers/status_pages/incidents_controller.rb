@@ -21,7 +21,7 @@ class StatusPages::IncidentsController < ApplicationController
     @incident = @status_page.incidents.build(incident_params)
     authorize @incident
     @incident.save
-    respond_with @incident, location: [@status_page, @incident]
+    respond_with @incident, location: [ @status_page, @incident ]
 
     # if @incident.save
     #   redirect_to [@status_page, @incident], notice: "Incident was successfully created."
