@@ -63,7 +63,10 @@ RSpec.describe 'Users', :js do
   describe 'サインアウト' do
     it 'サインイン済みアカウントでサインアウトできる' do
       sign_in(user)
-      visit destroy_user_session_path
+      visit root_path
+      expect(page).to have_content 'Status Pages'
+      
+      click_on 'サインアウト'
       expect(page).to have_content 'サインアウトしました。'
     end
   end
