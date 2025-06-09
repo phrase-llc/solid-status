@@ -31,8 +31,9 @@ bin/dev
 # Run tests
 bundle exec rspec
 
-# Run tests in parallel
-bundle exec rake parallel:spec
+# Run tests in parallel (setup required first time)
+bundle exec rake parallel:setup  # Setup parallel test databases
+bundle exec rake parallel:spec   # Run specs in parallel
 
 # Code quality checks
 bin/rubocop
