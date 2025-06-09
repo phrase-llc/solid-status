@@ -102,7 +102,7 @@ jobs:
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/yarn.lock') }}-chromium
 
       - name: Install Playwright browsers (Chromium only)
         if: steps.playwright-cache.outputs.cache-hit != 'true'
