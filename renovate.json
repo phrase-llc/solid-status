@@ -1,0 +1,65 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separateMajorReleases",
+    ":prConcurrentLimit10"
+  ],
+  "schedule": ["every weekend"],
+  "labels": ["dependencies"],
+  "assigneesFromCodeOwners": true,
+  "automerge": false,
+  "packageRules": [
+    {
+      "matchManagers": ["bundler"],
+      "groupName": "Ruby dependencies",
+      "commitMessagePrefix": "feat(deps): ",
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "matchManagers": ["bundler"],
+      "matchDepTypes": ["devDependencies"],
+      "groupName": "Ruby dev dependencies", 
+      "commitMessagePrefix": "chore(deps-dev): ",
+      "schedule": ["every weekend"],
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions",
+      "commitMessagePrefix": "ci: ",
+      "matchUpdateTypes": ["patch", "minor"]
+    },
+    {
+      "matchManagers": ["bundler"],
+      "matchUpdateTypes": ["major"],
+      "commitMessagePrefix": "feat(deps)!: ",
+      "labels": ["major-update", "breaking-change"]
+    },
+    {
+      "matchManagers": ["bundler", "nodenv", "rbenv"],
+      "matchPackageNames": ["ruby", "node", "nodejs"],
+      "commitMessagePrefix": "feat(runtime)!: ",
+      "labels": ["runtime-update", "manual-review"],
+      "reviewers": ["@owner"],
+      "assignees": ["@owner"]
+    },
+    {
+      "matchManagers": ["bundler"],
+      "matchPackagePatterns": ["^rails"],
+      "groupName": "Rails framework",
+      "commitMessagePrefix": "feat(rails): ",
+      "labels": ["rails-update"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "assignees": ["@owner"]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 4am on monday"]
+  }
+}
