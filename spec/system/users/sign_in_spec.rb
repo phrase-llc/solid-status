@@ -63,9 +63,7 @@ RSpec.describe 'Users', :js do
   describe 'サインアウト' do
     it 'サインイン済みアカウントでサインアウトできる' do
       sign_in(user)
-      visit root_path
-      find(class: 'pro-pic').click
-      click_on 'サインアウト', match: :first
+      visit destroy_user_session_path
       expect(page).to have_content 'サインアウトしました。'
     end
   end
