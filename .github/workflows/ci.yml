@@ -101,8 +101,8 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Setup parallel test databases
-        run: rake parallel:setup
+        run: bundle exec rake parallel:setup
 
       - name: Run RSpec tests in parallel
-        run: rake parallel:spec
+        run: bundle exec rake parallel:spec
 

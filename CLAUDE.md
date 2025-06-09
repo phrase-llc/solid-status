@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Testing
 - `bundle exec rspec` - Run all RSpec tests
 - `bundle exec rspec spec/system/users/sign_up_spec.rb` - Run specific test file
-- `rake parallel:spec` - Run specs in parallel for faster execution
+- `bundle exec rake parallel:spec` - Run specs in parallel for faster execution
 
 ### Code Quality
 - `bin/rubocop` - Run RuboCop linter (Rails Omakase style guide)
