@@ -25,6 +25,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Database
 - `bin/rails db:prepare` - Setup database (create, migrate, seed)
 - `bin/rails db:migrate` - Run pending migrations
+- `bin/rails db:seed` - Load environment-specific seed data
+- `bin/rails db:seed:replant` - Reset and reload seed data
 
 ## Architecture Overview
 
