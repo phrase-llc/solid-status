@@ -1,92 +1,131 @@
-# README
+# SolidStatus
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A multi-tenant B2B SaaS status page application built with Rails 8.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- **Multi-tenant architecture** with organization-based isolation
+- **Role-based access control** with admin/member organization roles
+- **Granular permissions** with editor/viewer status page memberships
+- **Incident management** with timeline entries and status tracking
+- **Modern UI** with Bootstrap 5, Turbo, and mobile-responsive design
 
-* System dependencies
+## Technology Stack
 
-* Configuration
+- **Ruby** 3.3+ / **Rails** 8.0+
+- **PostgreSQL** 17
+- **Node.js** 22+ / **Yarn**
+- **Bootstrap** 5 with SCSS
+- **Turbo** for SPA-like experience
+- **RSpec** with Playwright for system tests
 
-* Database creation
+## Development Setup
 
-* Database initialization
+```bash
+# Install dependencies and setup database
+bin/setup
 
-* How to run the test suite
+# Start development server with CSS watching
+bin/dev
 
-* Services (job queues, cache servers, search engines, etc.)
+# Run tests
+bundle exec rspec
 
-* Deployment instructions
+# Run tests in parallel
+bundle exec rake parallel:spec
 
-* ...
+# Code quality checks
+bin/rubocop
+bin/brakeman
+```
+
+## Architecture
+
+### Database Schema
 
 ```mermaid
 erDiagram
-  ORGANIZATIONS ||--o{ APPLICATIONS : has_many
   ORGANIZATIONS ||--o{ USERS : has_many
+  ORGANIZATIONS ||--o{ STATUS_PAGES : has_many
 
-  APPLICATIONS ||--o{ COMPONENTS : has_many
-  APPLICATIONS ||--o{ INCIDENTS : has_many
-  APPLICATIONS ||--o{ MEMBERSHIPS : has_many
+  STATUS_PAGES ||--o{ INCIDENTS : has_many
+  STATUS_PAGES ||--o{ MEMBERSHIPS : has_many
+
+  INCIDENTS ||--o{ INCIDENT_ENTRIES : has_many
 
   USERS ||--o{ MEMBERSHIPS : has_many
 
   ORGANIZATIONS {
-    int id
+    bigint id PK
     string name
     datetime created_at
     datetime updated_at
   }
 
   USERS {
-    int id
-    string email
+    bigint id PK
+    string email UK
     string encrypted_password
-    int organization_id
+    string first_name
+    string last_name
+    string display_name
+    bigint organization_id FK
+    string role "admin/member"
+    boolean disabled
     datetime created_at
     datetime updated_at
   }
 
-  APPLICATIONS {
-    int id
+  STATUS_PAGES {
+    bigint id PK
+    bigint organization_id FK
     string name
-    string domain
-    int organization_id
-    datetime created_at
-    datetime updated_at
-  }
-
-  COMPONENTS {
-    int id
-    string name
-    string status
-    int application_id
+    string url
     datetime created_at
     datetime updated_at
   }
 
   INCIDENTS {
-    int id
+    bigint id PK
+    bigint status_page_id FK
     string title
-    text description
-    string status
     datetime started_at
-    datetime resolved_at
-    int application_id
+    datetime ended_at
+    datetime created_at
+    datetime updated_at
+  }
+
+  INCIDENT_ENTRIES {
+    bigint id PK
+    bigint incident_id FK
+    string status "investigating/identified/monitoring/resolved"
+    text body
+    datetime posted_at
     datetime created_at
     datetime updated_at
   }
 
   MEMBERSHIPS {
-    int id
-    int user_id
-    int application_id
-    string role
+    bigint id PK
+    bigint user_id FK
+    bigint status_page_id FK
+    string role "editor/viewer"
     datetime created_at
     datetime updated_at
   }
-
 ```
+
+### Authorization Model
+
+1. **Organization Level**: Users belong to organizations with `admin` or `member` roles
+2. **Status Page Level**: Granular access via memberships with `editor` or `viewer` roles
+3. **Admin Bypass**: Organization admins have full access to all status pages
+4. **Member Restrictions**: Organization members need explicit membership for status page access
+
+## CI/CD
+
+- **GitHub Actions** with PostgreSQL 17
+- **Parallel RSpec execution** with database isolation
+- **Code quality checks** (RuboCop, Brakeman)
+- **Playwright system tests** with Chromium
+- **Renovate** for automated dependency updates
