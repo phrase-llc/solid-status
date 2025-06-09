@@ -53,3 +53,37 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: solid_status_test
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/solid_status_test
+      RAILS_ENV: test
+      CI: true
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Setup parallel test databases
+        run: rake parallel:setup
+
+      - name: Run RSpec tests in parallel
+        run: rake parallel:spec
+
