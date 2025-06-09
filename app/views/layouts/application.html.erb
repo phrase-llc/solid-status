@@ -51,6 +51,9 @@
             <a class="nav-link text-light" href="#"><i class="bi bi-gear-fill me-2"></i>設定</a>
             <a class="nav-link text-light" href="#"><i class="bi bi-people-fill me-2"></i>ユーザー管理</a>
             <a class="nav-link text-light" href="#"><i class="bi bi-info-circle-fill me-2"></i>ヘルプ</a>
+            <%= link_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-light" do %>
+              <i class="bi bi-box-arrow-right me-2"></i>サインアウト
+            <% end %>
           </nav>
         </div>
       </div>
@@ -63,6 +66,9 @@
           <a class="nav-link text-light" href="#"><i class="bi bi-gear-fill me-2"></i>設定</a>
           <a class="nav-link text-light" href="#"><i class="bi bi-people-fill me-2"></i>ユーザー管理</a>
           <a class="nav-link text-light" href="#"><i class="bi bi-info-circle-fill me-2"></i>ヘルプ</a>
+          <%= link_to destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "nav-link text-light" do %>
+            <i class="bi bi-box-arrow-right me-2"></i>サインアウト
+          <% end %>
         </nav>
       </aside>
 
