@@ -23,7 +23,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `yarn watch:css` - Watch SCSS files and auto-rebuild CSS
 
 ### Database
-- `bin/rails db:prepare` - Setup database (create, migrate, seed)
+- `bin/rails db:prepare` - Setup database if new, or migrate if exists (seeds only on first setup)
+- `bin/rails db:setup` - Create database, load schema, and run seeds (always seeds)
 - `bin/rails db:migrate` - Run pending migrations
 - `bin/rails db:seed` - Load environment-specific seed data
 - `bin/rails db:seed:replant` - Reset and reload seed data
