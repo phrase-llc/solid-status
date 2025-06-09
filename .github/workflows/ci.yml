@@ -67,10 +67,13 @@ jobs:
           - 5432:5432
 
     env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/solid_status_test
       RAILS_ENV: test
       CI: true
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DB_HOST: localhost
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_PORT: 5432
 
     steps:
       - name: Checkout code
