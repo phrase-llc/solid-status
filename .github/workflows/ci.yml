@@ -85,6 +85,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build CSS
+        run: yarn build:css
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
