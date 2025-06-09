@@ -85,6 +85,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
       - name: Setup parallel test databases
         run: rake parallel:setup
 
