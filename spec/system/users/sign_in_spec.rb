@@ -36,28 +36,6 @@ RSpec.describe 'Users', :js do
       click_on 'サインイン'
       expect(page).to have_content 'メールアドレスの本人確認が必要です。'
     end
-
-    xit '重複サインイン時はエラーメッセージが表示され unique_session_id にログが残る' do
-      visit new_user_session_path
-      fill_in 'Eメール', with: user.email
-      fill_in 'パスワード', with: user.password
-      click_on 'サインイン'
-      expect(page).to have_content 'Dashboard'
-
-      using_session :another do
-        visit new_user_session_path
-        fill_in 'Eメール', with: user.email
-        fill_in 'パスワード', with: user.password
-        click_on 'サインイン'
-        expect(page).to have_content 'Dashboard'
-      end
-
-      using_wait_time(20) do
-        visit current_path
-        expect(page).to have_content '他のブラウザでサインインされました。このブラウザで続ける場合は、もう一度サインインしてください。'
-        expect(UserUniqueSessionIdLog.count).to eq(1)
-      end
-    end
   end
 
   describe 'サインアウト' do
