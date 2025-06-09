@@ -7,58 +7,110 @@
     ":separateMajorReleases",
     ":prConcurrentLimit10"
   ],
-  "schedule": ["every weekend"],
-  "labels": ["dependencies"],
+  "schedule": [
+    "every weekend"
+  ],
+  "labels": [
+    "dependencies"
+  ],
   "assigneesFromCodeOwners": true,
   "automerge": false,
   "packageRules": [
     {
-      "matchManagers": ["bundler"],
+      "matchManagers": [
+        "bundler"
+      ],
       "groupName": "Ruby dependencies",
       "commitMessagePrefix": "feat(deps): ",
-      "matchUpdateTypes": ["patch", "minor"]
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
     },
     {
-      "matchManagers": ["bundler"],
-      "matchDepTypes": ["devDependencies"],
-      "groupName": "Ruby dev dependencies", 
+      "matchManagers": [
+        "bundler"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "groupName": "Ruby dev dependencies",
       "commitMessagePrefix": "chore(deps-dev): ",
-      "schedule": ["every weekend"],
-      "matchUpdateTypes": ["patch", "minor"]
+      "schedule": [
+        "every weekend"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
     },
     {
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "groupName": "GitHub Actions",
       "commitMessagePrefix": "ci: ",
-      "matchUpdateTypes": ["patch", "minor"]
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
     },
     {
-      "matchManagers": ["bundler"],
-      "matchUpdateTypes": ["major"],
+      "matchManagers": [
+        "bundler"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "commitMessagePrefix": "feat(deps)!: ",
-      "labels": ["major-update", "breaking-change"]
+      "labels": [
+        "major-update",
+        "breaking-change"
+      ]
     },
     {
-      "matchManagers": ["ruby-version", "nvm"],
+      "matchManagers": [
+        "ruby-version",
+        "nvm"
+      ],
       "commitMessagePrefix": "feat(runtime)!: ",
-      "labels": ["runtime-update", "manual-review"],
-      "reviewers": ["@owner"],
-      "assignees": ["@owner"]
+      "labels": [
+        "runtime-update",
+        "manual-review"
+      ],
+      "reviewers": [
+        "@owner"
+      ],
+      "assignees": [
+        "@owner"
+      ]
     },
     {
-      "matchManagers": ["bundler"],
-      "matchPackagePatterns": ["^rails"],
+      "matchManagers": [
+        "bundler"
+      ],
       "groupName": "Rails framework",
       "commitMessagePrefix": "feat(rails): ",
-      "labels": ["rails-update"]
+      "labels": [
+        "rails-update"
+      ],
+      "matchPackageNames": [
+        "/^rails/"
+      ]
     }
   ],
   "vulnerabilityAlerts": {
-    "labels": ["security"],
-    "assignees": ["@owner"]
+    "labels": [
+      "security"
+    ],
+    "assignees": [
+      "@owner"
+    ]
   },
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 4am on monday"]
+    "schedule": [
+      "before 4am on monday"
+    ]
   }
 }
