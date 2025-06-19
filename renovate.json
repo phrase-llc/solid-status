@@ -1,116 +1,70 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":dependencyDashboard",
     ":semanticCommits",
-    ":separateMajorReleases",
-    ":prConcurrentLimit10"
+    ":dependencyDashboard",
+    ":timezone(Asia/Tokyo)"
   ],
   "schedule": [
-    "every weekend"
+    "at 5am on monday"
   ],
-  "labels": [
-    "dependencies"
-  ],
-  "assigneesFromCodeOwners": true,
-  "automerge": false,
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 10,
   "packageRules": [
     {
+      "description": "Playwright npm package - disabled",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "playwright"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Ruby dependencies - grouped by update type",
       "matchManagers": [
         "bundler"
       ],
-      "groupName": "Ruby dependencies",
-      "commitMessagePrefix": "feat(deps): ",
       "matchUpdateTypes": [
-        "patch",
-        "minor"
+        "minor",
+        "patch"
+      ],
+      "groupName": "Ruby dependencies non-major",
+      "automerge": false
+    },
+    {
+      "description": "JavaScript dependencies - grouped by update type",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "JavaScript dependencies non-major",
+      "automerge": false,
+      "matchPackageNames": [
+        "!playwright"
       ]
     },
     {
-      "matchManagers": [
-        "bundler"
-      ],
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "groupName": "Ruby dev dependencies",
-      "commitMessagePrefix": "chore(deps-dev): ",
-      "schedule": [
-        "every weekend"
-      ],
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ]
-    },
-    {
-      "matchManagers": [
-        "github-actions"
-      ],
-      "groupName": "GitHub Actions",
-      "commitMessagePrefix": "ci: ",
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ]
-    },
-    {
-      "matchManagers": [
-        "bundler"
-      ],
+      "description": "Major updates require manual review",
       "matchUpdateTypes": [
         "major"
       ],
-      "commitMessagePrefix": "feat(deps)!: ",
-      "labels": [
-        "major-update",
-        "breaking-change"
-      ]
-    },
-    {
-      "matchManagers": [
-        "ruby-version",
-        "nvm"
-      ],
-      "commitMessagePrefix": "feat(runtime)!: ",
-      "labels": [
-        "runtime-update",
-        "manual-review"
-      ],
-      "reviewers": [
-        "@owner"
-      ],
-      "assignees": [
-        "@owner"
-      ]
-    },
-    {
-      "matchManagers": [
-        "bundler"
-      ],
-      "groupName": "Rails framework",
-      "commitMessagePrefix": "feat(rails): ",
-      "labels": [
-        "rails-update"
-      ],
-      "matchPackageNames": [
-        "/^rails/"
+      "automerge": false,
+      "addLabels": [
+        "major-update"
       ]
     }
   ],
   "vulnerabilityAlerts": {
-    "labels": [
-      "security"
-    ],
-    "assignees": [
-      "@owner"
-    ]
+    "enabled": true
   },
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": [
-      "before 4am on monday"
-    ]
-  }
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Dependency Dashboard",
+  "dependencyDashboardLabels": [
+    "dependencies"
+  ]
 }
