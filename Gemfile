@@ -92,3 +92,5 @@ gem "responders"
 gem "enum_help"
 
 gem "rinku"
+
+gem "aws-sdk-s3", "~> 1.229"

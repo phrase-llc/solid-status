@@ -1,6 +1,6 @@
 <%= bootstrap_form_with(model: status_page, local: true) do |f| %>
   <%= f.text_field :name %>
-  <%= f.text_field :url, placeholder: "https://status.example.com" %>
+  <%= f.text_field :slug, placeholder: "api", help: ".#{Rails.configuration.x.status_pages.base_domain} で公開されます" %>
 
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
