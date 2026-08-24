@@ -6,10 +6,12 @@
     <h1 class="h3"><%= title %></h1>
   </div>
   <div class="col-4 d-flex justify-content-end">
-    <%= link_to t("navigation.create"),
-                new_status_page_incident_path(@status_page),
-                class: "btn btn-outline-primary"
-    %>
+    <% if policy(Incident.new(status_page: @status_page)).create? %>
+      <%= link_to t("navigation.create"),
+                  new_status_page_incident_path(@status_page),
+                  class: "btn btn-outline-primary"
+      %>
+    <% end %>
   </div>
 </div>
 

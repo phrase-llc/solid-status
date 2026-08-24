@@ -6,15 +6,15 @@ A multi-tenant B2B SaaS status page application built with Rails 8.
 
 - **Multi-tenant architecture** with organization-based isolation
 - **Role-based access control** with admin/member organization roles
-- **Granular permissions** with editor/viewer status page memberships
+- **Simple permissions** with organization-level admin/member roles
 - **Incident management** with timeline entries and status tracking
 - **Modern UI** with Bootstrap 5, Turbo, and mobile-responsive design
 
 ## Technology Stack
 
-- **Ruby** 3.3+ / **Rails** 8.0+
+- **Ruby** 4.0.6 / **Rails** 8.1.3.1
 - **PostgreSQL** 17
-- **Node.js** 22+ / **Yarn**
+- **Node.js** 26+ / **Yarn**
 - **Bootstrap** 5 with SCSS
 - **Turbo** for SPA-like experience
 - **RSpec** with Playwright for system tests
@@ -106,22 +106,13 @@ erDiagram
     datetime updated_at
   }
 
-  MEMBERSHIPS {
-    bigint id PK
-    bigint user_id FK
-    bigint status_page_id FK
-    string role "editor/viewer"
-    datetime created_at
-    datetime updated_at
-  }
 ```
 
 ### Authorization Model
 
 1. **Organization Level**: Users belong to organizations with `admin` or `member` roles
-2. **Status Page Level**: Granular access via memberships with `editor` or `viewer` roles
-3. **Admin Bypass**: Organization admins have full access to all status pages
-4. **Member Restrictions**: Organization members need explicit membership for status page access
+2. **Admin Access**: Organization admins can manage status pages, incidents, and incident entries
+3. **Member Access**: Organization members can view all status pages and incidents in their organization
 
 ## CI/CD
 

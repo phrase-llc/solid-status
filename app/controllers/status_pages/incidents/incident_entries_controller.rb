@@ -1,7 +1,6 @@
 class StatusPages::Incidents::IncidentEntriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_incident
-  after_action :verify_authorized
   before_action :set_incident_entry, only: [ :edit, :update, :destroy ]
 
   def create
@@ -52,11 +51,11 @@ class StatusPages::Incidents::IncidentEntriesController < ApplicationController
   private
 
   def set_incident_entry
-    @incident_entry = IncidentEntry.find(params[:id])
+    @incident_entry = @incident.incident_entries.find(params[:id])
   end
 
   def set_incident
-    @incident = Incident.find(params[:incident_id])
+    @incident = StatusPage.find(params[:status_page_id]).incidents.find(params[:incident_id])
   end
 
   def incident_entry_params

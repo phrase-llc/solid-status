@@ -20,10 +20,6 @@ user = User.find_or_create_by!(email: "admin@example.com") do |u|
   u.role = "admin"
 end
 
-Membership.find_or_create_by!(user: user, status_page: status_page) do |m|
-  m.role = "editor"
-end
-
 incident = status_page.incidents.find_or_create_by!(
   title: "認証エラーの障害",
   started_at: 1.hour.ago

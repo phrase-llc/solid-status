@@ -1,28 +1,24 @@
 # app/policies/incident_entry_policy.rb
-class IncidentEntryPolicy < MembershipBasedPolicy
+class IncidentEntryPolicy < ApplicationPolicy
   def create?
-    same_organization? && editor?
+    same_organization? && user.admin?
   end
 
   def edit?
-    same_organization? && editor?
+    same_organization? && user.admin?
   end
 
   def update?
-    same_organization? && editor?
+    same_organization? && user.admin?
   end
 
   def destroy?
-    same_organization? && editor?
+    same_organization? && user.admin?
   end
 
   private
 
-  def subject_page
-    record.incident.status_page
-  end
-
-  def subject_organization_id
-    record.incident.status_page.organization_id
+  def same_organization?
+    record.incident.status_page.organization_id == user.organization_id
   end
 end

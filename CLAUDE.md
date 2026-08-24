@@ -35,16 +35,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The application follows a hierarchical organization model:
 - **Organizations** contain **Users** and **Status Pages**
 - **Users** have roles (`admin`/`member`) within their organization
-- **Memberships** provide granular access control per status page (`editor`/`viewer`)
 - **Incidents** belong to status pages and contain **Incident Entries** for timeline updates
 
 ### Authorization Pattern (Pundit-based)
-Two-tier authorization system:
-1. **Organization-level**: Users must belong to same organization as resources
-2. **Membership-level**: Granular permissions per status page
-   - `admin` users bypass membership checks (full org access)
-   - `member` users need explicit membership to access status pages
-   - Membership roles: `editor` (full CRUD) vs `viewer` (read-only)
+Organization-level authorization system:
+- Users can only access resources in their own organization.
+- `admin` users can create, update, and delete status pages, incidents, and incident entries.
+- `member` users can view status pages and incidents in their organization.
 
 ### Controller Hierarchy
 Nested namespace pattern mirrors data model:
@@ -57,9 +54,8 @@ StatusPagesController
 All controllers include `AccessControllable` concern for consistent Pundit integration.
 
 ### Key Policy Classes
-- `MembershipBasedPolicy` - Base class with organization + membership logic
-- Specific policies inherit and implement `subject_page` and `subject_organization_id`
-- Authorization methods: `same_organization?`, `admin?`, `editor?`, `viewer?`
+- `StatusPagePolicy`, `IncidentPolicy`, and `IncidentEntryPolicy`
+- Authorization methods verify organization ownership and the `admin` role for mutations.
 
 ### Turbo Integration
 Modern Hotwire approach with Turbo Streams for dynamic interactions:
@@ -69,6 +65,5 @@ Modern Hotwire approach with Turbo Streams for dynamic interactions:
 
 ### Data Model Notes
 - Organization isolation ensures complete tenant separation
-- Automatic membership creation when users join organizations
 - Dependent destroys maintain referential integrity
 - Incident entries track status progression timeline

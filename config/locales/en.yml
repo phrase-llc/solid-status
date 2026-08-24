@@ -54,8 +54,3 @@ en:
         monitoring: Monitoring
         resolved: Resolved
         postmortem: Postmortem
-    membership:
-      role:
-        viewer: Viewer
-        editor: Editor
-        unassigned: Unassigned

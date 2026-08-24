@@ -3,18 +3,17 @@ class StatusPages::IncidentsController < ApplicationController
   before_action :set_status_page
   before_action :set_incident, only: %i[show edit update destroy]
   before_action :authorize_incident, only: %i[show edit update destroy]
-  after_action :verify_policy_scoped, only: :index
-  after_action :verify_authorized, except: %w[index new]
 
   def index
-    @incidents = policy_scope(Incident).order(created_at: :desc)
+    authorize @status_page, :show?
+    @incidents = policy_scope(@status_page.incidents).order(created_at: :desc)
   end
 
   def show; end
 
   def new
-    @incident = Incident.new
-    # authorize @incident
+    @incident = @status_page.incidents.build
+    authorize @incident
   end
 
   def create
@@ -22,19 +21,13 @@ class StatusPages::IncidentsController < ApplicationController
     authorize @incident
     @incident.save
     respond_with @incident, location: [ @status_page, @incident ]
-
-    # if @incident.save
-    #   redirect_to [@status_page, @incident], notice: "Incident was successfully created."
-    # else
-    #   render :new, status: :unprocessable_entity
-    # end
   end
 
   def edit; end
 
   def update
     if @incident.update(incident_params)
-      redirect_to @incident, notice: "Incident was successfully updated."
+      redirect_to [ @status_page, @incident ], notice: "Incident was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +35,7 @@ class StatusPages::IncidentsController < ApplicationController
 
   def destroy
     @incident.destroy
-    redirect_to incidents_url, notice: "Incident was successfully destroyed."
+    redirect_to status_page_incidents_url(@status_page), notice: "Incident was successfully destroyed."
   end
 
   private
@@ -52,7 +45,7 @@ class StatusPages::IncidentsController < ApplicationController
   end
 
   def set_incident
-    @incident = Incident.find(params[:id])
+    @incident = @status_page.incidents.find(params[:id])
   end
 
   def authorize_incident
