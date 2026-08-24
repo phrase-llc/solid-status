@@ -5,10 +5,12 @@
     <h1 class="h3"><%= t("activerecord.models.status_page") %></h1>
   </div>
   <div class="col-4 d-flex justify-content-end">
-    <%= link_to t("navigation.create"),
-                new_status_page_path,
-                class: "btn btn-outline-primary"
-    %>
+    <% if current_user.admin? %>
+      <%= link_to t("navigation.create"),
+                  new_status_page_path,
+                  class: "btn btn-outline-primary"
+      %>
+    <% end %>
   </div>
 </div>
 
