@@ -57,6 +57,12 @@
       "addLabels": [
         "major-update"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "postgres"
+      ],
+      "enabled": false
     }
   ],
   "vulnerabilityAlerts": {
