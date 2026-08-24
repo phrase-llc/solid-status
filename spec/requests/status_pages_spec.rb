@@ -80,21 +80,21 @@ RSpec.describe "/status_pages", type: :request do
     describe "PATCH /update" do
       context "with valid parameters" do
         let(:new_attributes) {
-          skip("Add a hash of attributes valid for your model")
+          { name: "Updated status page", slug: "updated-status-page" }
         }
 
         it "updates the requested status_page" do
           status_page = StatusPage.create! valid_attributes
           patch status_page_url(status_page), params: { status_page: new_attributes }
-          status_page.reload
-          skip("Add assertions for updated state")
+
+          expect(status_page.reload).to have_attributes(new_attributes)
         end
 
-        it "redirects to the status_page" do
+        it "redirects to the status_pages list" do
           status_page = StatusPage.create! valid_attributes
           patch status_page_url(status_page), params: { status_page: new_attributes }
-          status_page.reload
-          expect(response).to redirect_to(status_page_url(status_page))
+
+          expect(response).to redirect_to(status_pages_url)
         end
       end
 
@@ -191,21 +191,22 @@ RSpec.describe "/status_pages", type: :request do
     describe "PATCH /update" do
       context "with valid parameters" do
         let(:new_attributes) {
-          skip("Add a hash of attributes valid for your model")
+          { name: "Updated status page", slug: "updated-status-page" }
         }
 
-        it "updates the requested status_page" do
+        it "does not update the requested status_page" do
           status_page = StatusPage.create! valid_attributes
+          original_attributes = status_page.attributes.slice("name", "slug")
           patch status_page_url(status_page), params: { status_page: new_attributes }
-          status_page.reload
-          skip("Add assertions for updated state")
+
+          expect(status_page.reload.attributes.slice("name", "slug")).to eq(original_attributes)
         end
 
-        it "redirects to the status_page" do
+        it "redirects to the root page" do
           status_page = StatusPage.create! valid_attributes
           patch status_page_url(status_page), params: { status_page: new_attributes }
-          status_page.reload
-          expect(response).to redirect_to(status_page_url(status_page))
+
+          expect(response).to redirect_to(root_url)
         end
       end
 

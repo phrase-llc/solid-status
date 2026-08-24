@@ -7,7 +7,7 @@
   </div>
   <div class="col-2">
     <div class="d-flex justify-content-end">
-      <% if policy(incident).edit? %>
+      <% if policy(incident).show? %>
         <%= link_to "更新", status_page_incident_path(incident.status_page, incident), class: "btn btn-sm btn-outline-primary me-2" %>
       <% end %>
       <% if policy(incident).destroy? %>
@@ -15,7 +15,7 @@
           <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="recordOptionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">その他</button>
           <ul class="dropdown-menu" aria-labelledby="recordOptionsDropdown">
             <li>
-              <%= link_to "削除", incident.status_page, method: :delete, class: "dropdown-item text-danger small", data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %>
+              <%= link_to "削除", status_page_incident_path(incident.status_page, incident), method: :delete, class: "dropdown-item text-danger small", data: { turbo_method: :delete, turbo_confirm: '削除しますか？' } %>
             </li>
           </ul>
         </div>
