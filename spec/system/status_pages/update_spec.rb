@@ -12,13 +12,13 @@ describe 'ページの編集', :js do
 
     expect(page).to have_content 'ページ'
     fill_in 'ページ名', with: Faker::Game.title
-    fill_in 'URL', with: Faker::Internet.url(host: 'example.com')
+    fill_in 'サブドメイン', with: "status-#{SecureRandom.hex(4)}"
     click_on '更新する'
 
     expect(page).to have_content 'ページが更新されました'
   end
 
-  it 'viewであれば更新できない' do
+  it 'メンバーであれば更新できない' do
     sign_in viewer_user
     visit edit_status_page_path(status_page)
     expect(page).to have_content '権限がありません'

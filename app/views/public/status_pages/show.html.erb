@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= @status_page.name %> - ステータス</title>
+    <style>
+      :root { color-scheme: light; font-family: system-ui, sans-serif; color: #172033; background: #f5f7fb; }
+      body { margin: 0; }
+      main { max-width: 760px; margin: 0 auto; padding: 48px 20px; }
+      h1 { margin-bottom: 8px; } .updated { color: #5b6474; }
+      .summary, article { background: #fff; border: 1px solid #dbe1eb; border-radius: 10px; padding: 20px; margin-top: 24px; }
+      .summary.ok { border-color: #1f9d55; } .summary.issue { border-color: #d97706; }
+      .badge { display: inline-block; border-radius: 999px; padding: 3px 10px; font-size: .85rem; font-weight: 600; background: #eaf8ef; color: #176b3a; }
+      .badge.issue { background: #fff4e5; color: #9a4c00; } .entry { border-top: 1px solid #e5e9f0; padding-top: 14px; margin-top: 14px; }
+      time { color: #5b6474; font-size: .9rem; } h2 { margin-bottom: 4px; } p { line-height: 1.6; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1><%= @status_page.name %></h1>
+        <p class="updated">最終公開: <time datetime="<%= @published_at.iso8601 %>"><%= l @published_at, format: :long %></time></p>
+      </header>
+
+      <% active_incidents = @incidents.select { |incident| incident.ended_at.nil? } %>
+      <section class="summary <%= active_incidents.any? ? "issue" : "ok" %>">
+        <% if active_incidents.any? %>
+          <strong class="badge issue">障害を確認しています</strong>
+          <p>現在、<%= active_incidents.size %> 件の未解決インシデントがあります。</p>
+        <% else %>
+          <strong class="badge">正常稼働中</strong>
+          <p>現在、報告されている未解決のインシデントはありません。</p>
+        <% end %>
+      </section>
+
+      <section aria-labelledby="incidents">
+        <h2 id="incidents">インシデント履歴</h2>
+        <% if @incidents.empty? %>
+          <p>報告されたインシデントはありません。</p>
+        <% end %>
+        <% @incidents.each do |incident| %>
+          <article>
+            <h3><%= incident.title %></h3>
+            <p>
+              <time datetime="<%= incident.started_at.iso8601 %>"><%= l incident.started_at, format: :long %></time>
+              <% if incident.ended_at.present? %>
+                〜 <time datetime="<%= incident.ended_at.iso8601 %>"><%= l incident.ended_at, format: :long %></time>
+              <% else %>
+                <span class="badge issue">対応中</span>
+              <% end %>
+            </p>
+            <% incident.incident_entries.sort_by(&:posted_at).reverse_each do |entry| %>
+              <div class="entry">
+                <strong><%= t("enums.incident_entry.status.#{entry.status}") %></strong>
+                <time datetime="<%= entry.posted_at.iso8601 %>"><%= l entry.posted_at, format: :long %></time>
+                <%= simple_format(h(entry.body)) %>
+              </div>
+            <% end %>
+          </article>
+        <% end %>
+      </section>
+    </main>
+  </body>
+</html>

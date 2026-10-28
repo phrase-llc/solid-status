@@ -30,7 +30,7 @@ ja:
         name: 組織名
       status_page:
         name: ページ名
-        url: URL
+        slug: サブドメイン
   errors:
     organization_creation_failed: 組織の作成に失敗しました。
   enums:

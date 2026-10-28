@@ -43,6 +43,11 @@ module SolidStatus
     config.time_zone = "Tokyo"
     config.active_model.i18n_customize_full_message = true
 
+    config.x.status_pages.base_domain = ENV.fetch("STATUS_PAGE_BASE_DOMAIN", "example.com")
+    config.x.status_pages.s3_bucket = ENV["STATUS_PAGE_S3_BUCKET"]
+    config.x.status_pages.s3_prefix = ENV.fetch("STATUS_PAGE_S3_PREFIX", "status-pages")
+    config.x.status_pages.local_output_path = Rails.root.join("tmp", "public_status_pages")
+
     config.generators do |g|
       g.helper false
       g.test_framework :rspec,

@@ -1,4 +1,9 @@
-# production:
+production:
+  reconcile_status_page_publications:
+    class: ReconcileStatusPagePublicationsJob
+    schedule: every minute
+
+# Examples:
 #   periodic_cleanup:
 #     class: CleanSoftDeletedRecordsJob
 #     queue: background
