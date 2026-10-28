@@ -45,6 +45,6 @@ class StatusPagesController < ApplicationController
   end
 
   def status_page_params
-    params.require(:status_page).permit(:name, :url)
+    params.require(:status_page).permit(:name, :slug)
   end
 end

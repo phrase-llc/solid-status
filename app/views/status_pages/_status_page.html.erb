@@ -3,11 +3,11 @@
     <%= status_page.name %>
   </div>
   <div class="col-4 my-auto">
-    <%= status_page.url %>
+    <%= link_to status_page.public_host, status_page.public_url, target: "_blank", rel: "noopener" %>
   </div>
   <div class="col-4">
     <div class="d-flex justify-content-end">
-      <% if policy(status_page).edit? %>
+      <% if policy(status_page).show? %>
         <%= link_to "インシデント", status_page_incidents_path(status_page), class: "btn btn-sm btn-outline-primary me-2" %>
       <% end %>
       <% if policy(status_page).edit? %>

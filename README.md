@@ -8,6 +8,7 @@ A multi-tenant B2B SaaS status page application built with Rails 8.
 - **Role-based access control** with admin/member organization roles
 - **Simple permissions** with organization-level admin/member roles
 - **Incident management** with timeline entries and status tracking
+- **Public static status pages** published to S3 and delivered through CloudFront
 - **Modern UI** with Bootstrap 5, Turbo, and mobile-responsive design
 
 ## Technology Stack
@@ -50,11 +51,7 @@ erDiagram
   ORGANIZATIONS ||--o{ STATUS_PAGES : has_many
 
   STATUS_PAGES ||--o{ INCIDENTS : has_many
-  STATUS_PAGES ||--o{ MEMBERSHIPS : has_many
-
   INCIDENTS ||--o{ INCIDENT_ENTRIES : has_many
-
-  USERS ||--o{ MEMBERSHIPS : has_many
 
   ORGANIZATIONS {
     bigint id PK
@@ -81,7 +78,7 @@ erDiagram
     bigint id PK
     bigint organization_id FK
     string name
-    string url
+    string slug UK
     datetime created_at
     datetime updated_at
   }
@@ -113,6 +110,10 @@ erDiagram
 1. **Organization Level**: Users belong to organizations with `admin` or `member` roles
 2. **Admin Access**: Organization admins can manage status pages, incidents, and incident entries
 3. **Member Access**: Organization members can view all status pages and incidents in their organization
+
+### Public status pages
+
+Each status page is published as static HTML to S3 after a committed change and served at `<slug>.example.com` through CloudFront. See [public status page deployment](docs/public-status-pages.md).
 
 ## CI/CD
 

@@ -12,7 +12,7 @@ RSpec.describe 'StatusPages', :js do
       visit new_status_page_path
       expect(page).to have_content 'ページ'
       fill_in 'ページ名', with: Faker::Game.title
-      fill_in 'URL', with: Faker::Internet.url(host: 'example.com')
+      fill_in 'サブドメイン', with: "status-#{SecureRandom.hex(4)}"
       click_on '登録する'
       expect(page).to have_content 'ページが作成されました'
     end
