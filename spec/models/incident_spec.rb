@@ -6,6 +6,7 @@ RSpec.describe Incident, type: :model do
   self.use_transactional_tests = false
 
   after do
+    StatusPagePublication.delete_all
     IncidentEntry.delete_all
     Incident.delete_all
     StatusPage.delete_all

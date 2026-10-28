@@ -40,6 +40,6 @@ class AddSlugToStatusPages < ActiveRecord::Migration[8.1]
     host = url.to_s.sub(%r{\Ahttps?://}i, "").split("/").first
     slug = host.to_s.split(".").first.to_s.downcase.gsub(/[^a-z0-9-]/, "-").gsub(/\A-+|-+\z/, "")
 
-    slug.first(63).presence
+    slug.first(63).to_s.gsub(/-+\z/, "").presence
   end
 end

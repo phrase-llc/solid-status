@@ -4,6 +4,6 @@ class UnpublishStatusPageJob < ApplicationJob
   retry_on Aws::S3::Errors::ServiceError, Seahorse::Client::NetworkingError, wait: :polynomially_longer, attempts: 5
 
   def perform(slug)
-    StatusPagePublishing::Publisher.new(nil).unpublish(slug)
+    StatusPagePublication.find_by(slug: slug)&.process!
   end
 end

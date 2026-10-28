@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_24_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_24_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_24_120000) do
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "status_page_publications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "pending", default: true, null: false
+    t.string "slug", null: false
+    t.bigint "status_page_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_status_page_publications_on_slug", unique: true
+    t.index ["status_page_id", "id"], name: "index_status_page_publications_pending", where: "(pending = true)"
   end
 
   create_table "status_pages", force: :cascade do |t|

@@ -6,6 +6,7 @@ RSpec.describe IncidentEntry, type: :model do
   self.use_transactional_tests = false
 
   after do
+    StatusPagePublication.delete_all
     IncidentEntry.delete_all
     Incident.delete_all
     StatusPage.delete_all
@@ -29,6 +30,7 @@ RSpec.describe "incident entry cleanup", type: :model do
   self.use_transactional_tests = false
 
   after do
+    StatusPagePublication.delete_all
     IncidentEntry.delete_all
     Incident.delete_all
     StatusPage.delete_all
@@ -44,5 +46,16 @@ RSpec.describe "incident entry cleanup", type: :model do
 
     expect { incident.destroy! }.not_to raise_error
     expect(enqueued_jobs.map { |job| job["arguments"].first }).to include(status_page.id)
+  end
+  it "enqueues one publication rather than one per cascading child deletion" do
+    status_page = create(:status_page)
+    incident = Incident.create!(status_page: status_page, title: "API 障害", started_at: Time.current)
+    3.times { IncidentEntry.create!(incident: incident, status: :investigating, posted_at: Time.current) }
+    clear_enqueued_jobs
+
+    incident.destroy!
+
+    expect(enqueued_jobs.count { |job| job["job_class"] == "PublishStatusPageJob" }).to eq(1)
+    expect(StatusPagePublication.find_by!(slug: status_page.slug)).to be_pending
   end
 end

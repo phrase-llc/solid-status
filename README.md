@@ -113,7 +113,7 @@ erDiagram
 
 ### Public status pages
 
-Each status page is published as static HTML to S3 after a committed change and served at `<slug>.example.com` through CloudFront. See [public status page deployment](docs/public-status-pages.md).
+Each status page is published as static HTML to S3 after a committed change and served at `<slug>.example.com` through CloudFront. Publication requests are stored transactionally in `status_page_publications`, retried by a recurring reconciliation job, and serialized per slug. Completed rows retain permanent slug reservations, including after page deletion. Drafts and explicit publish actions are not implemented; saved incident content is public. See [public status page deployment](docs/public-status-pages.md).
 
 ## CI/CD
 
