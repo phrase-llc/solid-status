@@ -11,9 +11,9 @@ A multi-tenant B2B SaaS status page application built with Rails 8.
 
 ## Technology Stack
 
-- **Ruby** 4.0.6 / **Rails** 8.1.4
+- **Ruby** 4.0.9 / **Rails** 8.1.4
 - **PostgreSQL** 17
-- **Node.js** 26+ / **Yarn**
+- **Node.js** 26.12.1 / **Yarn**
 - **Bootstrap** 5 with SCSS
 - **Turbo** for SPA-like experience
 - **RSpec** with Playwright for system tests
